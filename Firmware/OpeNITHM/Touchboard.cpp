@@ -1,7 +1,9 @@
 #include "Touchboard.h"
+#include <limits.h>
 
 void Touchboard::scan()
 {
+#ifndef USE_MPR121
   // For each key, set multiplexers and poll both capacitive sensors simultaneously
   for (int i = 0; i < 8; i++)
   {
@@ -17,9 +19,23 @@ void Touchboard::scan()
     keys[i + 8] = values[1];
 #else
     keys[i] = (unsigned int)touchRead(TOUCH_0);
-    keys[i+8] = (unsigned int)touchRead(TOUCH_1);
+    keys[i + 8] = (unsigned int)touchRead(TOUCH_1);
 #endif
   }
+#else
+#if defined(MPR_ANALOG)
+  for (int i = 0; i < NUM_MPRS; i++)
+  {
+    short* values = mprs[i].readElectrodeData(0, 7);
+    for (int j = 0; j < 8; j++)
+    {
+      keys[(i * 8) + j] = (UINT_MAX / 2) - (unsigned int)values[j];
+    }
+  }
+#elif defined(MPR_DIGITAL)
+#error "MPR_DIGITAL not yet implemented"
+#endif
+#endif
 }
 
 void Touchboard::calibrateKeys()
@@ -29,8 +45,8 @@ void Touchboard::calibrateKeys()
   {
     em_averages[i] = 0;
     neutral_values[i] = 0;
+    keys[i] = 0;
     key_states[i] = false;
-    keys[i] = false;
   }
 
   for (int i = 0; i < CALIBRATION_SAMPLES; i++) {
@@ -128,7 +144,7 @@ float Touchboard::getRawValue(int key)
 }
 
 Touchboard::Touchboard(void(*keyPressCallback)(int, bool)) :
-#ifndef TEENSY
+#ifdef USE_CAPLIB
   sensor(CapacitiveSensor(SEND, RECEIVE_1, RECEIVE_2)),
 #endif
   onKeyPress(keyPressCallback)
@@ -137,9 +153,22 @@ Touchboard::Touchboard(void(*keyPressCallback)(int, bool)) :
   EEPROM.get(4, deadzone);
   EEPROM.get(8, alpha);
 
+#ifndef USE_MPR121
   pinMode(MUX_0, OUTPUT);
   pinMode(MUX_1, OUTPUT);
   pinMode(MUX_2, OUTPUT);
+#else
+  for (int i = 0; i < NUM_MPRS; i++)
+  {
+    mpr121 &mpr = mprs[i];
+    mpr = mpr121(0x5a + i);
+    mpr.ESI = MPR_ESI_1; // get 4ms response time (4 samples * 1ms rate)
+    mpr.autoConfigUSL = 256L * (3200 - 700) / 3200; // set autoconfig for 3.2V
+    mpr.proxEnable = MPR_ELEPROX_DISABLED;
+    mpr.startMPR(8);
+  }
+  delay(1000);  // Let MPR121 autoconfig finish
+#endif
 
   calibrateKeys();
 }

@@ -96,7 +96,9 @@ void USBOutput::writeKey(uint16_t key)
 void USBOutput::pressKey(uint16_t key)
 {
 #ifndef TEENSY
-  pressKey(key);
+  NKROKeyboard.add((KeyboardKeycode)key);
+  Serial.print((KeyboardKeycode)key);
+  Serial.println(" pressed");
 #else
   Nkro.set_key(key);
 #endif
@@ -105,7 +107,9 @@ void USBOutput::pressKey(uint16_t key)
 void USBOutput::releaseKey(uint16_t key)
 {
 #ifndef TEENSY
-  NKROKeyboard.release(key);
+  NKROKeyboard.remove((KeyboardKeycode)key);
+  Serial.print((KeyboardKeycode)key);
+  Serial.println(" released");
 #else
   Nkro.reset_key(key);
 #endif
@@ -113,7 +117,12 @@ void USBOutput::releaseKey(uint16_t key)
 
 void USBOutput::sendUpdate()
 {
+#ifndef TEENSY
+  NKROKeyboard.send();
+//  Serial.println("keys updated");
+#else
   Nkro.send_nkro_now();
+#endif
 }
 
 #endif

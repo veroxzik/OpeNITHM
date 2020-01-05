@@ -17,6 +17,10 @@ SerialLeds serialLeds;
 #include "Touchboard.h"
 #include <FastLED.h>
 
+#ifdef USE_MPR121
+#include <mpr121.h>
+#endif
+
 CRGB leds[16];
 
 CRGB led_on = 0xFF00FF; // purple
@@ -41,6 +45,8 @@ void onKeyPress(int key, bool wasHeld)
   output->sendKeyEvent(key, true, wasHeld);
 #endif
   keyStates[key] = true;
+  Serial.print(key);
+  Serial.println(" onKeyPress");
 }
 
 // Parse configuration command. For now, a serial terminal is required (like the monitor in Arduino IDE)
@@ -219,6 +225,13 @@ void setup() {
     FastLED.show();
   }
 
+#ifdef USE_MPR121
+  // Begin Wire library (can this move to Touchboard?)
+  delay(10);  // Ensure MPR121s have booted
+  Wire.begin();
+  Wire.setClock(4000000);
+#endif
+
   // Initialize and calibrate touch sensors
   touchboard = new Touchboard(onKeyPress);
 
@@ -347,7 +360,7 @@ void loop() {
     Serial.print("\t");
     Serial.print(touchboard->getNeutralValue(PLOT_PIN));
     Serial.print("\t");
-    Serial.print(touchboard->getNeutralValue(PLOT_PIN) + touchboard->getDeadzone());
+    Serial.println(touchboard->getNeutralValue(PLOT_PIN) + touchboard->getDeadzone());
   }
 #endif
 

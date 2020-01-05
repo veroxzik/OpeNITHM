@@ -9,6 +9,16 @@
 // Uncomment this line to force the processor to use Serial Output
 //#define FORCE_SERIAL
 
+// Uncomment this line if you are using MPR121 sensors
+// Addresses for sensors *must* be consecutive
+// Assumes these are wired to the standard I2C lines
+//#define USE_MPR121
+
+// Number of MPR121s used in the controller
+// If 2, assume 16 keys and multi-thresholding on analog values
+// If 3, assume 32 keys and built-in digital thresholds
+#define NUM_MPRS  2
+
 // Uncomment this line if your IR sensors are multiplexed (Confirm pinout on PinConfig.h)
 //#define IR_SENSOR_MULTIPLEXED
 
@@ -54,6 +64,17 @@
 #if defined(__AVR_ATmega32U4__) || defined(__AVR_ATmega32u4__)
 #ifndef FORCE_SERIAL
 #define USB
+#endif
+#endif
+
+// Setting additional MPR121 defines
+#ifdef USE_MPR121
+#if NUM_MPRS == 2
+#define MPR_ANALOG
+#elif NUM_MPRS == 3
+#define MPR_DIGITAL
+#else
+#error "The NUM_MPRS define is set incorrectly. It must be 2 or 3."
 #endif
 #endif
 

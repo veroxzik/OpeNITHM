@@ -4,8 +4,16 @@
 #define _TOUCHBOARD_h
 
 #include "PinConfig.h"
-#ifndef TEENSY
+
+#if !defined(TEENSY) && !defined(USE_MPR121)
+#define USE_CAPLIB
+#endif
+
+#ifdef USE_CAPLIB
 #include "CapacitiveSensor.h"
+#endif
+#ifdef USE_MPR121
+#include <mpr121.h>
 #endif
 #include <EEPROM.h>
 #define EMA_TOUCHDETECT_ALPHA 0.1f
@@ -13,8 +21,15 @@
 class Touchboard
 {
   private:
-#ifndef TEENSY
+#ifdef USE_CAPLIB
     CapacitiveSensor sensor;
+#endif
+#ifdef USE_MPR121
+#if NUM_MPRS == 2
+    mpr121 mprs[NUM_MPRS] = {NULL, NULL};
+#elif NUM_MPRS == 3
+    mpr121 mprs[NUM_MPRS] = {NULL, NULL, NULL};
+#endif
 #endif
 
     uint16_t threshold;
