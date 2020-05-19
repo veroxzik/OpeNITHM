@@ -60,8 +60,7 @@ If you are going to solder your sensors directly to the PCB, it is not necessary
 | 51k ohm Resistor, 1/6W or 1/8W | LCSC or Aliexpress | 6 |
 | 33 ohm Resistor, 1/4W, 1/6W, or 1/8W | LCSC or Aliexpress | 3 |
 | 1m WS2812B RGB 5V LED Strip, 30LED Per Meter | [Aliexpress][8] | 1 |
-| IR LED | [Ebay (Qty 100)][9] | 6 |
-| IR Phototransistor | [Ebay (Qty 100)][10] | 6 |
+| IR LED and Phototransistor | [Ebay (Qty 20 pairs)][9] | 6 |
 
 [1]: https://www.aliexpress.com/item/32807771098.html
 [2]: https://www.aliexpress.com/item/665534073.html
@@ -71,8 +70,7 @@ If you are going to solder your sensors directly to the PCB, it is not necessary
 [6]: https://lcsc.com/product-detail/Pin-Header-Female-Header_Changjiang-Connectors-A2541HWV-11P_C225508.html
 [7]: https://lcsc.com/product-detail/Pin-Header-Female-Header_Boom-Precision-Elec-2-54mm-1-8P-Straight-Female-header_C27438.html
 [8]: https://www.aliexpress.com/item/2036819167.html
-[9]: https://www.ebay.com/itm/100pcs-5mm-IR-Infrared-LED-940nm-Lamp-High-Power-Wide-Angle-Long-Range/251565825589
-[10]: https://www.ebay.com/itm/100pcs-5mm-940nm-IR-LED-Infrared-Beams-Detector-Sensor-Black-Phototransistor/251816201528
+[9]: https://www.ebay.com/itm/40pcs-5mm-Infrared-LED-940nm-Emitter-Diode-and-IR-Receiver-Set/252235145540
 
 
 ## Installing on Teensy LC
