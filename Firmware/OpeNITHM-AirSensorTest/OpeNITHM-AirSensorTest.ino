@@ -29,12 +29,21 @@
 #define LED_2 5
 #endif
 
+#if defined(TEESNY_V1_0)
 #define AIR_SENSOR_0_PIN 10
 #define AIR_SENSOR_1_PIN 11
 #define AIR_SENSOR_2_PIN 12
 #define AIR_SENSOR_3_PIN 6
 #define AIR_SENSOR_4_PIN 8
 #define AIR_SENSOR_5_PIN 9
+#elif defined(TEENSY_V1_1)
+#define AIR_SENSOR_0_PIN 20
+#define AIR_SENSOR_1_PIN 19
+#define AIR_SENSOR_2_PIN 18
+#define AIR_SENSOR_3_PIN 23
+#define AIR_SENSOR_4_PIN 22
+#define AIR_SENSOR_5_PIN 21
+#endif
 
 #define LED_TYPE    WS2812B
 #define LED_ORDER   GRB
@@ -157,5 +166,4 @@ void changeLight(int light)
 #error "For Teensy, EITHER v1.0 OR v1.1 must be defined at the top of this file"
 #elif defined(TEESNY_V1_0) && defined(TEENSY_V1_1)
 #error "For Teensy, cannot define BOTH v1.0 AND v1.1 at the top of this file"
-#endif
 #endif
