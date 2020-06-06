@@ -36,15 +36,23 @@ You will also need the following hardware:
 
 ## List of Electronics
 
-OpeNITHM is designed two different processors in mind: the Pro Micro and the Teensy LC.
-Based on testing, it seems the Teensy LC is easier to set up and calibrate, but either should work with enough tuning.
+OpeNITHM is designed for the Teensy LC.
+
+#### Why use Teensy and not Arduino?
+
+The biggest reason is that Teensy has built in capacitive sensing, which is how OpeNITHM fuctions. You have to fake it on Arduino using very controlled analog reads, and it is nowhere near as sensitive. In my (VXZK's) experience, it was simply impossible to use an Arduino to do the capacitive sensing required for this project.
+
+I chose the Teensy LC as it is the lowest cost Teensy model available with capacitive sensing. The firmware and PCB are designed for this board alone; significant modifications may be required for any other version.
+
+There is an alternative build using an Arduino Pro Micro and 2 MPR121s as a branch in this repo, but it is not maintained and not recommended. You're on your own with that one!
 
 ### Teensy LC Build
 
-Links are mostly suggestions (except the Teensy, which is only officially available through the PJRC site and authorized resellers).
-(VXKZ: I've heard a lot of trouble regarding good quality IR leds and phototransistors, so I've included specific links to the ones I purchased and has worked well for me.)
-The links below also assume you want to socket your Teensy and multiplexers for later use. You can solder them directly, if you'd like.
-If you are going to solder your sensors directly to the PCB, it is not necessary buy the 0.1" Pin Header, Right Angle. Otherwise, include female 0.1" sockets for your sensors (commonly referred to as Dupont connectors).
+Links are mostly suggestions (except the Teensy, which is only officially available through the PJRC site and authorized resellers).  
+(VXZK: I've heard a lot of trouble regarding good quality IR leds and phototransistors, so I've included specific links to the ones I purchased and has worked well for me.)  
+
+The links below also assume you want to socket your Teensy and multiplexers for later use. You can solder them directly, if you'd like.  
+If you are going to solder your sensors directly to the PCB, it is not necessary buy the 0.1" Pin Header, Right Angle. Otherwise, include female 0.1" sockets for your sensors (commonly referred to as Dupont connectors).  
 
 | Part | Link | Qty |
 | --- | --- |:---:|
