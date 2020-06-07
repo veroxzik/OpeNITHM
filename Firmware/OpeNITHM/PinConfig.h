@@ -15,6 +15,10 @@
 #define MUX_0 2
 #define MUX_1 1
 #define MUX_2 0
+#elif defined(TEENSY_V2_0)
+#define MUX_0 0
+#define MUX_1 1
+#define MUX_2 2
 #endif
 #else                       // Pro Micro
 #define MUX_0 20
@@ -28,7 +32,7 @@
 #define LED_0 16
 #define LED_1 21
 #define LED_2 5
-#elif defined(TEENSY_V1_1)
+#elif defined(TEENSY_V1_1) || defined(TEENSY_V2_0)
 #define LED_0 7
 #define LED_1 6
 #define LED_2 5
@@ -57,6 +61,13 @@
 #define AIR_SENSOR_3_PIN 23
 #define AIR_SENSOR_4_PIN 22
 #define AIR_SENSOR_5_PIN 21
+#elif defined(TEENSY_V2_0)
+#define AIR_SENSOR_0_PIN 18
+#define AIR_SENSOR_1_PIN 20
+#define AIR_SENSOR_2_PIN 22
+#define AIR_SENSOR_3_PIN 19
+#define AIR_SENSOR_4_PIN 21
+#define AIR_SENSOR_5_PIN 23
 #endif
 #else
 #define AIR_SENSOR_0_PIN 4
@@ -80,6 +91,11 @@
 #elif defined(TEENSY_V1_1)
 #define TOUCH_0 16
 #define TOUCH_1 3
+#elif defined(TEENSY_V2_0)
+#define TOUCH_0 16
+#define TOUCH_1 3
+#define TOUCH_2 4
+#define TOUCH_3 15
 #endif
 #endif
 
@@ -89,7 +105,7 @@
 #ifdef TEENSY               // Teensy LC
 #if defined(TEENSY_V1_0)
 #define RGBPIN 4
-#elif defined(TEENSY_V1_1)
+#elif defined(TEENSY_V1_1) || defined(TEENSY_V2_0)
 #define RGBPIN 11
 #endif
 #else

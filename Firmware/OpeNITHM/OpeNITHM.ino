@@ -23,7 +23,6 @@ CRGB led_on = 0xFF00FF; // purple
 CRGB led_off = 0xFFFF00; // yellow
 
 float lightIntensity[16];
-bool keyStates[16];
 bool activated = true;
 float sensorPosition = -1;
 
@@ -32,16 +31,6 @@ AirSensor *sensor;
 Output *output;
 
 char command[32];
-
-// Triggered when Touchboard determines a key was pressed
-void onKeyPress(int key, bool wasHeld)
-{
-  lightIntensity[key] = 1.0f;
-#if !defined(SERIAL_PLOT) && defined(USB)
-  output->sendKeyEvent(key, true, wasHeld);
-#endif
-  keyStates[key] = true;
-}
 
 // Parse configuration command. For now, a serial terminal is required (like the monitor in Arduino IDE)
 // Eventually I will make a config tool
@@ -71,7 +60,7 @@ void parseCommand()
           break;
         case 'n': // print neutral values
           Serial.println("Neutral Values");
-          for (i = 0; i < 16; i++)
+          for (i = 0; i < NUM_SENSORS; i++)
           {
             Serial.print("Key: ");
             Serial.print(i);
@@ -81,7 +70,7 @@ void parseCommand()
           break;
         case 'e': // print moving average values
           Serial.println("Moving Average Values");
-          for (i = 0; i < 16; i++)
+          for (i = 0; i < NUM_SENSORS; i++)
           {
             Serial.print("Key: ");
             Serial.print(i);
@@ -91,7 +80,7 @@ void parseCommand()
           break;
         case 'r': // print raw values
           Serial.println("Raw Values");
-          for (i = 0; i < 16; i++)
+          for (i = 0; i < NUM_SENSORS; i++)
           {
             Serial.print("Key: ");
             Serial.print(i);
@@ -220,7 +209,7 @@ void setup() {
   }
 
   // Initialize and calibrate touch sensors
-  touchboard = new Touchboard(onKeyPress);
+  touchboard = new Touchboard();
 
   // Initialize air sensor
   // Digital mode calibrations in the constructor
@@ -289,27 +278,29 @@ void loop() {
     if (lightIntensity[index] > 0.05f)
       lightIntensity[index] -= 0.05f;
 
-    // If the key is currently being held, set its color to purple
-    if (touchboard->update(i))
-    {
-#ifndef LED_SERIAL
-      leds[index].setRGB(min(led_on.r / 2 + led_on.r / 2 * lightIntensity[index], 255), min(led_on.g / 2 + led_on.g / 2 * lightIntensity[index], 255), min(led_on.b / 2 + led_on.b / 2 * lightIntensity[index], 255));
-#endif
-    }
-    else
-    {
-#ifndef LED_SERIAL
-      // If not, make it yellow and send the "key released" event if it was previously pressed
-      leds[index].setRGB(led_off.r / 2, led_off.g / 2, led_off.b / 2);
-#endif
-      if (keyStates[i])
-      {
+#if NUM_SENSORS == 16
+
+    KeyState state = touchboard->update(i);
 #if !defined(SERIAL_PLOT) && defined(USB)
-        output->sendKeyEvent(i, false, false);
+    output->sendKeyEvent(i, state);
 #endif
-        keyStates[i] = false;
-      }
-    }
+
+#elif NUM_SENSORS == 32
+
+    KeyState state;
+    KeyState stateTop = touchboard->update(i * 2);
+    KeyState stateBot = touchboard->update(i * 2 + 1);
+
+    // Initial 32 key test -- only the single threshold will be applied
+    if (stateTop == KeyState::released && stateBot == KeyState::released)
+      state == KeyState::released;
+    else if ((stateTop != KeyState::released && stateBot == KeyState::released) ||
+             (stateTop == KeyState::released && stateBot != KeyState::released))
+      state == KeyState::singleTouch;
+    else if (stateTop != KeyState::released && stateBot != KeyState::released)
+      state == KeyState::doubleTouch;
+
+#endif
 
 #ifdef LED_SERIAL
     if (updateLeds)
@@ -317,13 +308,24 @@ void loop() {
       RGBLed temp = serialLeds.getKey(i);
       leds[index].setRGB(temp.r, temp.g, temp.b);
     }
+#else // Reactive LEDs
+    if (state != KeyState::released)
+    {
+      // If the key is currently being held, set its color to LED_ON
+      leds[index].setRGB(min(led_on.r / 2 + led_on.r / 2 * lightIntensity[index], 255), min(led_on.g / 2 + led_on.g / 2 * lightIntensity[index], 255), min(led_on.b / 2 + led_on.b / 2 * lightIntensity[index], 255));
+    }
+    else
+    {
+      // Else, return to LED_OFF
+      leds[index].setRGB(led_off.r / 2, led_off.g / 2, led_off.b / 2);
+    }
 #endif
   }
 
 #ifdef SERIAL_PLOT
   if (PLOT_PIN == -1)
   {
-    for (int i = 0; i < 16; i++)
+    for (int i = 0; i < NUM_SENSORS; i++)
     {
 #ifdef SERIAL_RAW_VALUES
       // Print values

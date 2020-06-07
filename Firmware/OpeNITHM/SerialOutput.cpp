@@ -8,12 +8,12 @@
 // use a serial line to talk to a UC with USB, which will then act as a USB peripheral
 // Only needed because I didn't receive my Atmega328p until late in the project
 
-void SerialOutput::sendKeyEvent(int key, bool pressed, bool doublePressed)
+void SerialOutput::sendKeyEvent(int key, KeyState state)
 {
   builtPacket.data = 0;
   builtPacket.keyEvent.isKeyboard = true;
-  builtPacket.keyEvent.isPressed = pressed;
-  builtPacket.keyEvent.isDoublePressed = doublePressed;
+  builtPacket.keyEvent.isPressed = (state != KeyState::released);
+  builtPacket.keyEvent.isDoublePressed = (state == KeyState::doubleTouch);
   builtPacket.keyEvent.key = key;
 
   Serial.write(builtPacket.data);

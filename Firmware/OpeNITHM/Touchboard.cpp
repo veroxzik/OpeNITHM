@@ -1,4 +1,9 @@
 #include "Touchboard.h"
+#include "Output.h"
+
+#if NUM_SENSORS == 32
+static const int sensorMap[] = { 3, 11, 2, 10, 1, 9, 0, 8, 31, 23, 30, 22, 29, 21, 28, 20, 27, 19, 26, 18, 25, 17, 24, 16, 7, 15, 6, 14, 5, 13, 4, 12 };
+#endif
 
 void Touchboard::scan()
 {
@@ -16,8 +21,15 @@ void Touchboard::scan()
     keys[i] = values[0];
     keys[i + 8] = values[1];
 #else
+#if NUM_SENSORS == 16
     keys[i] = (unsigned int)touchRead(TOUCH_0);
-    keys[i+8] = (unsigned int)touchRead(TOUCH_1);
+    keys[i + 8] = (unsigned int)touchRead(TOUCH_1);
+#elif NUM_SENSORS == 32
+    keys[sensorMap[i]] = (unsigned int)touchRead(TOUCH_0);
+    keys[sensorMap[i + 8]] = (unsigned int)touchRead(TOUCH_1);
+    keys[sensorMap[i + 16]] = (unsigned int)touchRead(TOUCH_2);
+    keys[sensorMap[i + 24]] = (unsigned int)touchRead(TOUCH_3);
+#endif
 #endif
   }
 }
@@ -25,11 +37,11 @@ void Touchboard::scan()
 void Touchboard::calibrateKeys()
 {
   // Reset calibration data for all keys
-  for (int i = 0; i < 16; i++)
+  for (int i = 0; i < NUM_SENSORS; i++)
   {
     em_averages[i] = 0;
     neutral_values[i] = 0;
-    key_states[i] = false;
+    key_states[i] = KeyState::released;
     keys[i] = false;
   }
 
@@ -37,28 +49,28 @@ void Touchboard::calibrateKeys()
     // Repeatedly scan all keys
     scan();
     // Store the lowest read value as our baseline
-    for (int j = 0; j < 16; j++) {
+    for (int j = 0; j < NUM_SENSORS; j++) {
       if (keys[j] > neutral_values[j]) neutral_values[j] = keys[j];
     }
   }
   // After calibration is complete, initialize the averages to the baseline values established previously
-  for (int i = 0; i < 16; i++) {
+  for (int i = 0; i < NUM_SENSORS; i++) {
     em_averages[i] = neutral_values[i];
   }
 }
 
-bool Touchboard::update(int key)
+KeyState Touchboard::update(int key)
 {
   int read_value = keys[key];
   float new_average = alpha * read_value + (1 - alpha) * em_averages[key];
   if (read_value - neutral_values[key] < deadzone)
   {
     // If we are in the deadzone, ignore any touch events, set the key to be untouched and update the moving average.
-    if (key_states[key])
+    if (key_states[key] != KeyState::released)
       em_averages[key] = neutral_values[key];
     else
       em_averages[key] = new_average;
-    key_states[key] = false;
+    key_states[key] = KeyState::released;
   }
   else
   {
@@ -67,8 +79,10 @@ bool Touchboard::update(int key)
     {
       // If we just detected a touch, make the key touched, discard the previous moving average and trigger the callback.
       em_averages[key] = read_value;
-      onKeyPress(key, key_states[key]);
-      key_states[key] = true;
+      if (key_states[key] == KeyState::released)
+        key_states[key] = KeyState::singleTouch;
+      else
+        key_states[key] = KeyState::doubleTouch;
     }
     else
     {
@@ -127,11 +141,10 @@ float Touchboard::getRawValue(int key)
   return keys[key];
 }
 
-Touchboard::Touchboard(void(*keyPressCallback)(int, bool)) :
+Touchboard::Touchboard()
 #ifndef TEENSY
-  sensor(CapacitiveSensor(SEND, RECEIVE_1, RECEIVE_2)),
+  : sensor(CapacitiveSensor(SEND, RECEIVE_1, RECEIVE_2))
 #endif
-  onKeyPress(keyPressCallback)
 {
   EEPROM.get(0, threshold);
   EEPROM.get(4, deadzone);

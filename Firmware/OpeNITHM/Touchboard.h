@@ -4,6 +4,7 @@
 #define _TOUCHBOARD_h
 
 #include "PinConfig.h"
+#include "Output.h"
 #ifndef TEENSY
 #include "CapacitiveSensor.h"
 #endif
@@ -21,17 +22,16 @@ class Touchboard
     uint16_t deadzone;
     float alpha;
 
-    float em_averages[16];
-    unsigned int keys[16];
-    int neutral_values[16];
-    void (*onKeyPress)(int, bool);
+    float em_averages[NUM_SENSORS];
+    unsigned int keys[NUM_SENSORS];
+    int neutral_values[NUM_SENSORS];
 
   public:
-    bool key_states[16];
+    KeyState key_states[NUM_SENSORS];
 
-    Touchboard(void(*keyPressCallback)(int, bool));
+    Touchboard();
     void scan();
-    bool update(int key);
+    KeyState update(int key);
     void setThreshold(uint16_t threshold);
     void setDeadzone(uint16_t deadzone);
     void setAlpha(float alpha);
@@ -43,5 +43,7 @@ class Touchboard
     float getRawValue(int key);
     void calibrateKeys();
 };
+
+
 
 #endif

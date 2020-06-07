@@ -34,7 +34,7 @@ class SerialOutput : public Output
   private:
     Packet builtPacket = Packet();
   public:
-    void sendKeyEvent(int key, bool pressed, bool doublePressed) override;
+    void sendKeyEvent(int key, KeyState state) override;
     void sendSensorEvent(float position) override;
     void sendSensor(int sensor) override;
     void sendUpdate() override;
