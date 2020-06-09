@@ -8,6 +8,8 @@ Firmware, schematics, board layout, and CAD files are included in this repo.
 
 In the `CAD\STL` folder, you will find numerous parts that must be 3D printed.
 
+Please check out [the wiki](https://github.com/veroxzik/OpeNITHM/wiki/File-Explanation) for more information.
+
 | Part | Qty |
 | --- |:---:|
 | Center Frame | 1 |
@@ -83,7 +85,7 @@ If you are going to solder your sensors directly to the PCB, it is not necessary
 
 ## Installing on Teensy LC
 
-**NOTE:** This firmware is *only* written to work for the Teensy LC. Do *not* use Teensy 2.0 or Teensy 3.x
+**NOTE:** This firmware is *only* written to work for the Teensy LC. Do *not* use Teensy 2.0, Teensy 3.x, or Teensy 4.x
 
 Skip this section if you are using a Pro Micro.
 
