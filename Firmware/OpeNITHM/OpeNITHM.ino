@@ -281,9 +281,6 @@ void loop() {
 #if NUM_SENSORS == 16
 
     KeyState state = touchboard->update(i);
-#if !defined(SERIAL_PLOT) && defined(USB)
-    output->sendKeyEvent(i, state);
-#endif
 
 #elif NUM_SENSORS == 32
 
@@ -300,6 +297,10 @@ void loop() {
     else if (stateTop != KeyState::released && stateBot != KeyState::released)
       state == KeyState::doubleTouch;
 
+#endif
+
+#if !defined(SERIAL_PLOT) && defined(USB)
+    output->sendKeyEvent(i, state);
 #endif
 
 #ifdef LED_SERIAL

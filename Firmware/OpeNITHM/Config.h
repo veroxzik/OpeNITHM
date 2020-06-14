@@ -7,7 +7,7 @@
 // *** USER EDITABLE CONFIG OPTIONS ***
 
 // Select which board you're using (ignore if not using Teensy)
-#define TEENSY_V1_0   // Version 1.0 (No version number on board)
+//#define TEENSY_V1_0   // Version 1.0 (No version number on board)
 //#define TEENSY_V1_1   // Version 1.1 (v1.1 on board under logo)
 //#define TEENSY_V2_0   // Version 2.0 (v2.0 in upper left of board)
 
