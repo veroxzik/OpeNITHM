@@ -1,5 +1,7 @@
 # OpeNITHM
 
+# AS OF 2020-07-10 THERE ARE CURRENTLY HEAVY REVISIONS BEING MADE, PLEASE DO NOT ORDER PARTS FOR NOW
+
 This repository contails files related to OpeNITHM.
 
 Firmware, schematics, board layout, and CAD files are included in this repo.
