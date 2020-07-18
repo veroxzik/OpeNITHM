@@ -1,5 +1,7 @@
 # OpeNITHM
 
+# AS OF 2020-07-10 THERE ARE CURRENTLY HEAVY REVISIONS BEING MADE, PLEASE DO NOT ORDER PARTS FOR NOW
+
 This repository contails files related to OpeNITHM.
 
 Firmware, schematics, board layout, and CAD files are included in this repo.
@@ -8,13 +10,15 @@ Firmware, schematics, board layout, and CAD files are included in this repo.
 
 In the `CAD\STL` folder, you will find numerous parts that must be 3D printed.
 
+Please check out [the wiki](https://github.com/veroxzik/OpeNITHM/wiki/File-Explanation) for more information.
+
 | Part | Qty |
 | --- |:---:|
 | Center Frame | 1 |
 | Right Frame | 1 |
 | Left Frame | 1 |
-| Key **OR** Key-US_Cust<sup>1</sup> | 16 |
-| LED Clamp | 16 |
+| Key Dual 2.5mm **OR** Key Dual 3mm<sup>1</sup> | 16 |
+| LED Support Peg | 16 |
 | Sensor Rail | 2 |
 | Sensor Spacer Left<sup>2</sup> | 1 |
 | Sensor Base Left<sup>2</sup> **OR** Integrated Sensor Base Left<sup>2</sup> | 1 |
@@ -22,29 +26,41 @@ In the `CAD\STL` folder, you will find numerous parts that must be 3D printed.
 | Integrated Frame Mount Left<sup>2,3</sup> | 1 |
 
 **NOTES:** 
-1. "Key" is designed for 3mm acrylic, "Key-US_Cust" is designed for 1/8" acrylic
+1. Use 2.5mm for 3/32" and 3mm for 1/8" acrylic. 
 2. Print out mirrored version of these parts as well.
 3. Only print the frame mount if you are using the integrated sensor.
 
-You will also need the following hardware:
+The non-printed materials and hardware include:
 
 | Part                                                                       | Qty |
 | --- |:---:|
 | 4-40 Flat Head Screw, length 3/16" to 5/16" will work **OR** M3 equivalent | 2   |
-| Acrylic Rectangles, 90mm x 26mm, Thickness 3mm **OR** 1/8"                 | 16  |
+| Top Acrylic Plate<sup>1</sup> (472mm x 112mm)                              | 1   |
+| Key Acrylic<sup>1</sup> (103.5mm x 26mm)                                   | 16  |
 | Copper Tape, cut into rectangles 95mm x 26mm                               | 16  |
+
+**NOTES:**
+1. Use 2.5mm (3/32") **OR** 3mm (1/8") acrylic. Use the same acrylic for top plate and keys.
 
 ## List of Electronics
 
-OpeNITHM is designed two different processors in mind: the Pro Micro and the Teensy LC.
-Based on testing, it seems the Teensy LC is easier to set up and calibrate, but either should work with enough tuning.
+OpeNITHM is designed for the Teensy LC.
+
+#### Why use Teensy and not Arduino?
+
+The biggest reason is that Teensy has built in capacitive sensing, which is how OpeNITHM fuctions. You have to fake it on Arduino using very controlled analog reads, and it is nowhere near as sensitive. In my (VXZK's) experience, it was simply impossible to use an Arduino to do the capacitive sensing required for this project.
+
+I chose the Teensy LC as it is the lowest cost Teensy model available with capacitive sensing. The firmware and PCB are designed for this board alone; significant modifications may be required for any other version.
+
+There is an alternative build using an Arduino Pro Micro and 2 MPR121s as a branch in this repo, but it is not maintained and not recommended. You're on your own with that one!
 
 ### Teensy LC Build
 
-Links are mostly suggestions (except the Teensy, which is only officially available through the PJRC site and authorized resellers).
-(VXKZ: I've heard a lot of trouble regarding good quality IR leds and phototransistors, so I've included specific links to the ones I purchased and has worked well for me.)
-The links below also assume you want to socket your Teensy and multiplexers for later use. You can solder them directly, if you'd like.
-If you are going to solder your sensors directly to the PCB, it is not necessary buy the 0.1" Pin Header, Right Angle. Otherwise, include female 0.1" sockets for your sensors (commonly referred to as Dupont connectors).
+Links are mostly suggestions (except the Teensy, which is only officially available through the PJRC site and authorized resellers).  
+(VXZK: I've heard a lot of trouble regarding good quality IR leds and phototransistors, so I've included specific links to the ones I purchased and has worked well for me.)  
+
+The links below also assume you want to socket your Teensy and multiplexers for later use. You can solder them directly, if you'd like.  
+If you are going to solder your sensors directly to the PCB, it is not necessary buy the 0.1" Pin Header, Right Angle. Otherwise, include female 0.1" sockets for your sensors (commonly referred to as Dupont connectors).  
 
 | Part | Link | Qty |
 | --- | --- |:---:|
@@ -75,7 +91,7 @@ If you are going to solder your sensors directly to the PCB, it is not necessary
 
 ## Installing on Teensy LC
 
-**NOTE:** This firmware is *only* written to work for the Teensy LC. Do *not* use Teensy 2.0 or Teensy 3.x
+**NOTE:** This firmware is *only* written to work for the Teensy LC. Do *not* use Teensy 2.0, Teensy 3.x, or Teensy 4.x
 
 Skip this section if you are using a Pro Micro.
 
@@ -428,3 +444,7 @@ If `#define IR_SENSOR_KEY` is uncommented, each air sensor will report back indi
 / . ' ; ] [
 ```
 Per US QWERTY layout.
+
+## Credits
+
+Thanks to SpaghettiSnail for the LED Support Peg model!
