@@ -14,13 +14,6 @@ void Touchboard::scan()
     digitalWrite(MUX_1, bitRead(i, 1));
     digitalWrite(MUX_2, bitRead(i, 2));
 
-#ifndef TEENSY
-    unsigned int* values = sensor.sense(3);
-
-    // Store the values received from the sensor poll into their respective positions
-    keys[i] = values[0];
-    keys[i + 8] = values[1];
-#else
 #if NUM_SENSORS == 16
     keys[i] = (unsigned int)touchRead(TOUCH_0);
     keys[i + 8] = (unsigned int)touchRead(TOUCH_1);
@@ -29,7 +22,6 @@ void Touchboard::scan()
     keys[sensorMap[i + 8]] = (unsigned int)touchRead(TOUCH_1);
     keys[sensorMap[i + 16]] = (unsigned int)touchRead(TOUCH_2);
     keys[sensorMap[i + 24]] = (unsigned int)touchRead(TOUCH_3);
-#endif
 #endif
   }
 }
@@ -142,9 +134,6 @@ float Touchboard::getRawValue(int key)
 }
 
 Touchboard::Touchboard()
-#ifndef TEENSY
-  : sensor(CapacitiveSensor(SEND, RECEIVE_1, RECEIVE_2))
-#endif
 {
   EEPROM.get(0, threshold);
   EEPROM.get(4, deadzone);

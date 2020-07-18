@@ -89,40 +89,25 @@ void USBOutput::sendSensor(int sensor)
 
 USBOutput::USBOutput()
 {
-#ifndef TEENSY
-  NKROKeyboard.begin();
-#endif
   lastPosition = 0;
 }
 
 void USBOutput::writeKey(uint16_t key)
 {
-#ifndef TEENSY
-  NKROKeyboard.write(key);
-#else
   Nkro.set_key(key);
   Nkro.send_nkro_now();
   Nkro.reset_key(key);
   Nkro.send_nkro_now();
-#endif
 }
 
 void USBOutput::pressKey(uint16_t key)
 {
-#ifndef TEENSY
-  pressKey(key);
-#else
   Nkro.set_key(key);
-#endif
 }
 
 void USBOutput::releaseKey(uint16_t key)
 {
-#ifndef TEENSY
-  NKROKeyboard.release(key);
-#else
   Nkro.reset_key(key);
-#endif
 }
 
 void USBOutput::sendUpdate()

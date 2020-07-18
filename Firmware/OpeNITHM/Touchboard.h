@@ -5,19 +5,12 @@
 
 #include "PinConfig.h"
 #include "Output.h"
-#ifndef TEENSY
-#include "CapacitiveSensor.h"
-#endif
 #include <EEPROM.h>
 #define EMA_TOUCHDETECT_ALPHA 0.1f
 
 class Touchboard
 {
   private:
-#ifndef TEENSY
-    CapacitiveSensor sensor;
-#endif
-
     uint16_t threshold;
     uint16_t deadzone;
     float alpha;

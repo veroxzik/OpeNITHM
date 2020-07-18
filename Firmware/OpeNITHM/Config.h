@@ -10,6 +10,7 @@
 //#define TEENSY_V1_0   // Version 1.0 (No version number on board)
 //#define TEENSY_V1_1   // Version 1.1 (v1.1 on board under logo)
 //#define TEENSY_V2_0   // Version 2.0 (v2.0 in upper left of board)
+#define TEENSY_V2_1   // Version 2.1 (v2.1 in upper left of board)
 
 // Uncomment this line to force the processor to use Serial Output
 //#define FORCE_SERIAL
@@ -46,6 +47,10 @@
 
 // *** DO NOT CHANGE BELOW THIS LINE ***
 
+#if defined(__AVR__)
+#error "You cannot use any Arduino boards with this code. You must use a Teensy LC (recommended), or switch to the Pro Micro + MPR121 branch (not recommended)."
+#endif
+
 // Determine if we're compiling on Teensy
 #if defined(__MKL26Z64__)  // Teensy LC
 #define TEENSY
@@ -55,17 +60,10 @@
 #endif
 
 // Spit out errors for board definitions
-#if (defined(TEENSY_V1_0) + defined(TEENSY_V1_1) + defined(TEENSY_V2_0)) == 0
+#if (defined(TEENSY_V1_0) + defined(TEENSY_V1_1) + defined(TEENSY_V2_0) + defined(TEENSY_V2_1)) == 0
 #error "Must define ONE Teensy board in Config.h"
-#elif (defined(TEENSY_V1_0) + defined(TEENSY_V1_1) + defined(TEENSY_V2_0)) > 1
+#elif (defined(TEENSY_V1_0) + defined(TEENSY_V1_1) + defined(TEENSY_V2_0) + defined(TEENSY_V2_1)) > 1
 #error "Cannot define multiple Teensy boards in Config.h"
-#endif
-#endif
-
-// Comment out these lines to force Serial output
-#if defined(__AVR_ATmega32U4__) || defined(__AVR_ATmega32u4__)
-#ifndef FORCE_SERIAL
-#define USB
 #endif
 #endif
 

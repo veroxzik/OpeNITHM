@@ -12,10 +12,6 @@
 #include "WProgram.h"
 #endif
 
-#ifndef TEENSY
-#include <HID-Project.h>
-#endif
-
 class USBOutput : public Output
 {
   private:
