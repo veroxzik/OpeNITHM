@@ -146,40 +146,40 @@ Wire Wire Line
 	4150 7250 4150 7200
 Text Label 3850 6800 0    50   ~ 0
 AIR_5
-Text Notes 3850 3450 0    50   ~ 0
+Text Notes 3850 3850 0    50   ~ 0
  Connected to\n   off-board\nphototransistors
 Text Notes 2400 5900 0    79   ~ 16
 IR Sensors
 $Comp
 L Device:R R18
 U 1 1 5C656A75
-P 7650 4950
-F 0 "R18" V 7550 4950 50  0000 C CNN
-F 1 "33" V 7750 4950 50  0000 C CNN
-F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 7580 4950 50  0001 C CNN
-F 3 "~" H 7650 4950 50  0001 C CNN
-	1    7650 4950
+P 7350 4950
+F 0 "R18" V 7250 4950 50  0000 C CNN
+F 1 "33" V 7450 4950 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 7280 4950 50  0001 C CNN
+F 3 "~" H 7350 4950 50  0001 C CNN
+	1    7350 4950
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	7800 4600 7900 4600
+	7500 4600 7600 4600
 Wire Wire Line
-	7900 4600 7900 4850
+	7600 4600 7600 4850
 Wire Wire Line
-	7800 5300 7900 5300
+	7500 5300 7600 5300
 Wire Wire Line
-	7900 5300 7900 5050
+	7600 5300 7600 5050
 Wire Wire Line
-	7500 4600 7100 4600
+	7200 4600 6800 4600
 Wire Wire Line
-	7500 4950 7100 4950
+	7200 4950 6800 4950
 Wire Wire Line
-	7500 5300 7100 5300
-Text Label 7100 4600 0    50   ~ 0
+	7200 5300 6800 5300
+Text Label 6800 4600 0    50   ~ 0
 LED_0
-Text Label 7100 4950 0    50   ~ 0
+Text Label 6800 4950 0    50   ~ 0
 LED_1
-Text Label 7100 5300 0    50   ~ 0
+Text Label 6800 5300 0    50   ~ 0
 LED_2
 $Comp
 L Device:R R20
@@ -236,104 +236,104 @@ F 3 "~" H 4150 7050 50  0001 C CNN
 	1    4150 7050
 	1    0    0    -1  
 $EndComp
-Text Notes 7550 4350 0    79   ~ 16
+Text Notes 7250 4350 0    79   ~ 16
 IR LEDs
 Wire Notes Line
 	6450 2850 6450 650 
 Wire Notes Line
-	9000 4350 9300 4350
+	8700 4350 9000 4350
 Wire Notes Line
-	9300 4200 9000 4200
-Wire Notes Line
-	9300 4350 9300 4200
+	9000 4200 8700 4200
 Wire Notes Line
 	9000 4350 9000 4200
-Text Notes 8950 4250 0    31   ~ 0
+Wire Notes Line
+	8700 4350 8700 4200
+Text Notes 8650 4250 0    31   ~ 0
 A
-Text Notes 8950 4350 0    31   ~ 0
+Text Notes 8650 4350 0    31   ~ 0
 K
 Wire Notes Line
-	9000 4600 9300 4600
+	8700 4600 9000 4600
 Wire Notes Line
-	9300 4450 9000 4450
-Wire Notes Line
-	9300 4600 9300 4450
+	9000 4450 8700 4450
 Wire Notes Line
 	9000 4600 9000 4450
-Text Notes 8950 4500 0    31   ~ 0
+Wire Notes Line
+	8700 4600 8700 4450
+Text Notes 8650 4500 0    31   ~ 0
 A
-Text Notes 8950 4600 0    31   ~ 0
+Text Notes 8650 4600 0    31   ~ 0
 K
 Wire Notes Line
-	9000 4850 9300 4850
+	8700 4850 9000 4850
 Wire Notes Line
-	9300 4700 9000 4700
-Wire Notes Line
-	9300 4850 9300 4700
+	9000 4700 8700 4700
 Wire Notes Line
 	9000 4850 9000 4700
-Text Notes 8950 4750 0    31   ~ 0
+Wire Notes Line
+	8700 4850 8700 4700
+Text Notes 8650 4750 0    31   ~ 0
 A
-Text Notes 8950 4850 0    31   ~ 0
+Text Notes 8650 4850 0    31   ~ 0
 K
 Wire Notes Line
-	9000 5100 9300 5100
+	8700 5100 9000 5100
 Wire Notes Line
-	9300 4950 9000 4950
-Wire Notes Line
-	9300 5100 9300 4950
+	9000 4950 8700 4950
 Wire Notes Line
 	9000 5100 9000 4950
-Text Notes 8950 5000 0    31   ~ 0
+Wire Notes Line
+	8700 5100 8700 4950
+Text Notes 8650 5000 0    31   ~ 0
 A
-Text Notes 8950 5100 0    31   ~ 0
+Text Notes 8650 5100 0    31   ~ 0
 K
 Wire Notes Line
-	9000 5350 9300 5350
+	8700 5350 9000 5350
 Wire Notes Line
-	9300 5200 9000 5200
-Wire Notes Line
-	9300 5350 9300 5200
+	9000 5200 8700 5200
 Wire Notes Line
 	9000 5350 9000 5200
-Text Notes 8950 5250 0    31   ~ 0
+Wire Notes Line
+	8700 5350 8700 5200
+Text Notes 8650 5250 0    31   ~ 0
 A
-Text Notes 8950 5350 0    31   ~ 0
+Text Notes 8650 5350 0    31   ~ 0
 K
 Wire Notes Line
-	9000 5600 9300 5600
+	8700 5600 9000 5600
 Wire Notes Line
-	9300 5450 9000 5450
-Text Notes 9000 5550 0    51   ~ 0
+	9000 5450 8700 5450
+Text Notes 8700 5550 0    51   ~ 0
 LED #1
 Wire Notes Line
-	9300 5600 9300 5450
-Wire Notes Line
 	9000 5600 9000 5450
-Text Notes 8950 5500 0    31   ~ 0
+Wire Notes Line
+	8700 5600 8700 5450
+Text Notes 8650 5500 0    31   ~ 0
 A
-Text Notes 8950 5600 0    31   ~ 0
+Text Notes 8650 5600 0    31   ~ 0
 K
 Wire Notes Line
-	8850 4300 9000 4300
+	8550 4300 8700 4300
 Wire Notes Line
-	9000 4500 8850 4500
+	8700 4500 8550 4500
 Wire Notes Line
-	9000 5300 8850 5300
+	8700 5300 8550 5300
 Wire Notes Line
-	9000 5500 8850 5500
+	8700 5500 8550 5500
 Wire Notes Line rgb(194, 0, 0)
-	8750 4800 9000 4800
+	8450 4800 8700 4800
 Wire Notes Line rgb(194, 0, 0)
-	9000 5550 8750 5550
+	8700 5550 8450 5550
 Wire Notes Line rgb(194, 0, 0)
-	9000 5250 8750 5250
+	8700 5250 8450 5250
 Wire Notes Line rgb(0, 194, 0)
-	8650 4250 9000 4250
+	8350 4250 8700 4250
 Wire Notes Line rgb(0, 194, 0)
-	9000 4550 8650 4550
+	8700 4550 8350 4550
 Wire Notes Line rgb(0, 194, 0)
-	9000 4750 8650 4750
+	8700 4750 8350 4750
 Wire Wire Line
 	8050 2050 8550 2050
 Wire Wire Line
@@ -347,36 +347,36 @@ Wire Wire Line
 Text Notes 7350 1050 0    50   ~ 0
 74HC4051 module
 Wire Notes Line
-	6600 4100 11050 4100
+	6600 4100 9100 4100
 Wire Notes Line
-	8850 5500 8850 4300
+	8550 5500 8550 4300
 Wire Notes Line rgb(194, 0, 0)
-	8750 5550 8750 4800
+	8450 5550 8450 4800
 Wire Notes Line rgb(0, 194, 0)
-	8650 5050 8650 4250
+	8350 5050 8350 4250
 Wire Notes Line rgb(194, 0, 0)
-	9000 5000 8750 5000
+	8700 5000 8450 5000
 Wire Notes Line
-	6600 4100 6600 5650
+	6600 4100 6600 5900
 Wire Notes Line
-	6600 5650 11050 5650
+	6600 5900 9100 5900
 Wire Notes Line
-	11050 5650 11050 4100
+	9100 5900 9100 4100
 Wire Notes Line
-	8400 4850 8850 4850
+	8100 4850 8550 4850
 Wire Notes Line rgb(194, 0, 0)
-	8400 4950 8750 4950
+	8100 4950 8450 4950
 Wire Notes Line rgb(0, 194, 0)
-	8400 5050 9000 5050
-Text Notes 9000 5300 0    51   ~ 0
+	8100 5050 8700 5050
+Text Notes 8700 5300 0    51   ~ 0
 LED #2
-Text Notes 9000 5050 0    51   ~ 0
+Text Notes 8700 5050 0    51   ~ 0
 LED #3
-Text Notes 9000 4800 0    51   ~ 0
+Text Notes 8700 4800 0    51   ~ 0
 LED #4
-Text Notes 9000 4550 0    51   ~ 0
+Text Notes 8700 4550 0    51   ~ 0
 LED #5
-Text Notes 9000 4300 0    51   ~ 0
+Text Notes 8700 4300 0    51   ~ 0
 LED #6
 Wire Notes Line
 	6600 650  11050 650 
@@ -627,83 +627,72 @@ Text Label 3450 2350 0    50   ~ 0
 TOUCH_0
 Wire Wire Line
 	3450 2350 4100 2350
-Text Label 1050 4000 0    50   ~ 0
-KEY_8
-Text Label 1050 4100 0    50   ~ 0
-KEY_9
-Text Label 1050 4200 0    50   ~ 0
-KEY_10
-Text Label 1050 4300 0    50   ~ 0
-KEY_11
 Text Label 1050 4400 0    50   ~ 0
-KEY_12
+KEY_8
 Text Label 1050 4500 0    50   ~ 0
-KEY_13
+KEY_9
 Text Label 1050 4600 0    50   ~ 0
-KEY_14
+KEY_10
 Text Label 1050 4700 0    50   ~ 0
+KEY_11
+Text Label 1050 4800 0    50   ~ 0
+KEY_12
+Text Label 1050 4900 0    50   ~ 0
+KEY_13
+Text Label 1050 5000 0    50   ~ 0
+KEY_14
+Text Label 1050 5100 0    50   ~ 0
 KEY_15
-Text Label 1150 3600 2    50   ~ 0
+Text Label 1150 4000 2    50   ~ 0
 LED_0_OUT
-Text Label 1150 3700 2    50   ~ 0
+Text Label 1150 4100 2    50   ~ 0
 LED_1_OUT
-Text Label 1150 3800 2    50   ~ 0
+Text Label 1150 4200 2    50   ~ 0
 LED_2_OUT
 Wire Wire Line
-	3300 3500 3300 3450
+	3300 3900 3300 3850
 Wire Wire Line
-	3300 3700 3300 3750
-Text Label 3400 3600 2    50   ~ 0
-RGB_DO_OUT
-$Comp
-L power:+5V #PWR0111
-U 1 1 5D492DB8
-P 3300 3450
-F 0 "#PWR0111" H 3300 3300 50  0001 C CNN
-F 1 "+5V" H 3315 3623 50  0000 C CNN
-F 2 "" H 3300 3450 50  0001 C CNN
-F 3 "" H 3300 3450 50  0001 C CNN
-	1    3300 3450
-	-1   0    0    -1  
-$EndComp
+	3300 4100 3300 4150
+Text Label 3400 4000 2    50   ~ 0
+RGB_DO_BUF
 $Comp
 L power:GND #PWR0112
 U 1 1 5D492DBE
-P 3300 3750
-F 0 "#PWR0112" H 3300 3500 50  0001 C CNN
-F 1 "GND" H 3305 3577 50  0000 C CNN
-F 2 "" H 3300 3750 50  0001 C CNN
-F 3 "" H 3300 3750 50  0001 C CNN
-	1    3300 3750
+P 3300 4150
+F 0 "#PWR0112" H 3300 3900 50  0001 C CNN
+F 1 "GND" H 3305 3977 50  0000 C CNN
+F 2 "" H 3300 4150 50  0001 C CNN
+F 3 "" H 3300 4150 50  0001 C CNN
+	1    3300 4150
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	5400 3600 6200 3600
+	5400 4000 6200 4000
 Wire Wire Line
-	5500 3800 6200 3800
+	5500 4200 6200 4200
 Wire Wire Line
-	5450 3700 6200 3700
-Text Label 4050 3600 2    50   ~ 0
+	5450 4100 6200 4100
+Text Label 4050 4000 2    50   ~ 0
 AIR_0
-Text Label 4050 3700 2    50   ~ 0
+Text Label 4050 4100 2    50   ~ 0
 AIR_1
-Text Label 4050 3800 2    50   ~ 0
+Text Label 4050 4200 2    50   ~ 0
 AIR_2
-Text Label 5950 3600 0    50   ~ 0
+Text Label 5950 4000 0    50   ~ 0
 AIR_3
-Text Label 5950 3700 0    50   ~ 0
+Text Label 5950 4100 0    50   ~ 0
 AIR_4
-Text Label 5950 3800 0    50   ~ 0
+Text Label 5950 4200 0    50   ~ 0
 AIR_5
 $Comp
 L power:+3.3V #PWR0113
 U 1 1 5D5F2DAE
-P 4650 3450
-F 0 "#PWR0113" H 4650 3300 50  0001 C CNN
-F 1 "+3.3V" H 4665 3623 50  0000 C CNN
-F 2 "" H 4650 3450 50  0001 C CNN
-F 3 "" H 4650 3450 50  0001 C CNN
-	1    4650 3450
+P 4650 3850
+F 0 "#PWR0113" H 4650 3700 50  0001 C CNN
+F 1 "+3.3V" H 4665 4023 50  0000 C CNN
+F 2 "" H 4650 3850 50  0001 C CNN
+F 3 "" H 4650 3850 50  0001 C CNN
+	1    4650 3850
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
@@ -811,35 +800,18 @@ Wire Notes Line
 	1500 1400 1250 1400
 Text Notes 1300 1300 2    39   ~ 0
 Capacitive touch
-Text Label 8000 4850 0    50   ~ 0
+Text Label 7700 4850 0    50   ~ 0
 LED_0_OUT
-Text Label 8000 4950 0    50   ~ 0
+Text Label 7700 4950 0    50   ~ 0
 LED_1_OUT
-Text Label 8000 5050 0    50   ~ 0
+Text Label 7700 5050 0    50   ~ 0
 LED_2_OUT
 Wire Wire Line
-	7900 4850 8400 4850
+	7600 4850 8100 4850
 Wire Wire Line
-	7800 4950 8400 4950
+	7500 4950 8100 4950
 Wire Wire Line
-	7900 5050 8400 5050
-$Comp
-L Jumper:SolderJumper_3_Open JP1
-U 1 1 5E0B19FC
-P 8000 5950
-F 0 "JP1" H 8000 6050 50  0000 C CNN
-F 1 "SolderJumper_3_Open" H 8000 6064 50  0001 C CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm" H 8000 5950 50  0001 C CNN
-F 3 "~" H 8000 5950 50  0001 C CNN
-	1    8000 5950
-	1    0    0    -1  
-$EndComp
-Text Label 8600 6350 2    50   ~ 0
-RGB_DO_OUT
-Wire Wire Line
-	8000 6350 8000 6100
-Wire Wire Line
-	8000 6350 8600 6350
+	7600 5050 8100 5050
 $Comp
 L Connector_Generic:Conn_01x05 J9
 U 1 1 5E11B7BB
@@ -861,18 +833,10 @@ Text Notes 6100 1750 0    59   ~ 0
 PROG
 Text Notes 6100 1850 0    59   ~ 0
 26
-Text Label 5200 1400 0    50   ~ 0
+Text Label 5150 1400 0    50   ~ 0
 RGB_DO_BUF
 Wire Wire Line
-	5200 1400 5800 1400
-Text Label 9000 5950 2    50   ~ 0
-RGB_DO_BUF
-Wire Wire Line
-	8200 5950 9000 5950
-Text Label 7150 5950 0    50   ~ 0
-RGB_DO
-Wire Wire Line
-	7150 5950 7800 5950
+	5150 1400 5800 1400
 Wire Wire Line
 	2150 1450 1500 1450
 Text Label 1500 1450 0    50   ~ 0
@@ -888,57 +852,45 @@ Wire Notes Line rgb(181, 36, 0)
 Wire Notes Line rgb(181, 36, 0)
 	1350 2200 1350 2000
 Wire Notes Line rgb(99, 255, 8)
-	5050 1350 5050 1300
-Text Notes 4750 1300 0    39   ~ 0
+	5000 1350 5000 1300
+Text Notes 4700 1300 0    39   ~ 0
 RGB lighting
 Wire Notes Line rgb(99, 255, 8)
-	5050 1350 5200 1350
+	5000 1350 5150 1350
 Wire Notes Line
 	5950 5650 650  5650
-Text Notes 3800 3150 0    79   ~ 16
+Text Notes 4050 3200 0    79   ~ 16
 External Pin Headers
 Wire Notes Line
 	650  650  650  2850
 Wire Notes Line
-	6450 5200 650  5200
+	6450 5500 650  5500
 Wire Notes Line
-	650  2950 650  5200
+	650  2950 650  5500
 Wire Notes Line
 	6450 2950 650  2950
 Wire Notes Line
-	6450 2950 6450 5200
+	6450 2950 6450 5500
 Wire Notes Line
-	1200 3500 700  3500
-Text Notes 750  3300 0    50   ~ 0
+	1200 3900 700  3900
+Text Notes 750  3700 0    50   ~ 0
 Connected to off-board \nIR LEDs
 Wire Notes Line
-	950  3300 950  3500
+	950  3700 950  3900
 Wire Notes Line
-	6600 5750 6600 6450
+	2900 4400 3450 4400
 Wire Notes Line
-	6600 5750 11050 5750
-Text Notes 9300 5950 0    79   ~ 16
-RGB Power Selection
+	2900 4400 2900 3600
 Wire Notes Line
-	6600 6450 11050 6450
+	3450 4400 3450 3600
 Wire Notes Line
-	11050 5750 11050 6450
-Wire Notes Line
-	2900 4000 3450 4000
-Wire Notes Line
-	2900 4000 2900 3200
-Wire Notes Line
-	3450 4000 3450 3200
-Wire Notes Line
-	2900 3200 3450 3200
-Text Notes 2250 3350 0    50   ~ 0
+	2900 3600 3450 3600
+Text Notes 2250 3750 0    50   ~ 0
 Connected to\nRGB Strip
 Wire Notes Line
-	2650 3300 2900 3300
-Text Notes 9600 5600 0    50   ~ 0
+	2650 3700 2900 3700
+Text Notes 6800 5800 0    50   ~ 0
 A - Anode (Long Pin)\nK - Cathode (Short Pin, Flat Side)
-Text Notes 9050 6350 0    50   ~ 0
-Solder 1 and 2 together to use 3.3V logic\nSolder 2 and 3 together to use built-in 5V buffer
 Text Notes 4600 6100 0    50   ~ 0
 To +3.3V
 Text Notes 4500 7450 0    50   ~ 0
@@ -998,16 +950,16 @@ Capacitive touch
 $Comp
 L power:GND #PWR0104
 U 1 1 5E9D5F1A
-P 5650 3350
-F 0 "#PWR0104" H 5650 3100 50  0001 C CNN
-F 1 "GND" H 5655 3177 50  0000 C CNN
-F 2 "" H 5650 3350 50  0001 C CNN
-F 3 "" H 5650 3350 50  0001 C CNN
-	1    5650 3350
+P 5650 3750
+F 0 "#PWR0104" H 5650 3500 50  0001 C CNN
+F 1 "GND" H 5655 3577 50  0000 C CNN
+F 2 "" H 5650 3750 50  0001 C CNN
+F 3 "" H 5650 3750 50  0001 C CNN
+	1    5650 3750
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	5650 3300 5650 3350
+	5650 3700 5650 3750
 Wire Notes Line
 	1250 1300 1250 1500
 Text Label 8450 3550 2    50   ~ 0
@@ -1435,71 +1387,63 @@ Wire Wire Line
 $Comp
 L Connector_Generic:Conn_02x12_Odd_Even J7
 U 1 1 5F3152FE
-P 1750 4100
-F 0 "J7" H 1800 4725 50  0000 C CNN
-F 1 "Conn_02x12_Odd_Even" H 1800 4726 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x12_P2.54mm_Horizontal" H 1750 4100 50  0001 C CNN
-F 3 "~" H 1750 4100 50  0001 C CNN
-	1    1750 4100
+P 1750 4500
+F 0 "J7" H 1800 5125 50  0000 C CNN
+F 1 "Conn_02x12_Odd_Even" H 1800 5126 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x12_P2.54mm_Horizontal" H 1750 4500 50  0001 C CNN
+F 3 "~" H 1750 4500 50  0001 C CNN
+	1    1750 4500
 	1    0    0    -1  
 $EndComp
 $Comp
 L Connector_Generic:Conn_02x12_Odd_Even J8
 U 1 1 5FD12E81
-P 4950 4100
-F 0 "J8" H 5000 4725 50  0000 C CNN
-F 1 "Conn_02x12_Odd_Even" H 5000 4726 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x12_P2.54mm_Horizontal" H 4950 4100 50  0001 C CNN
-F 3 "~" H 4950 4100 50  0001 C CNN
-	1    4950 4100
+P 4950 4500
+F 0 "J8" H 5000 5125 50  0000 C CNN
+F 1 "Conn_02x12_Odd_Even" H 5000 5126 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x12_P2.54mm_Horizontal" H 4950 4500 50  0001 C CNN
+F 3 "~" H 4950 4500 50  0001 C CNN
+	1    4950 4500
 	1    0    0    -1  
 $EndComp
 Wire Notes Line
-	700  3850 700  3500
+	700  4250 700  3900
 Wire Notes Line
-	1200 3850 1200 3500
+	1200 4250 1200 3900
 Wire Notes Line
-	1200 3850 700  3850
-Text Label 2650 4000 2    50   ~ 0
-KEY_0
-Text Label 2650 4100 2    50   ~ 0
-KEY_1
-Text Label 2650 4200 2    50   ~ 0
-KEY_2
-Text Label 2650 4300 2    50   ~ 0
-KEY_3
+	1200 4250 700  4250
 Text Label 2650 4400 2    50   ~ 0
-KEY_4
+KEY_0
 Text Label 2650 4500 2    50   ~ 0
-KEY_5
+KEY_1
 Text Label 2650 4600 2    50   ~ 0
-KEY_6
+KEY_2
 Text Label 2650 4700 2    50   ~ 0
+KEY_3
+Text Label 2650 4800 2    50   ~ 0
+KEY_4
+Text Label 2650 4900 2    50   ~ 0
+KEY_5
+Text Label 2650 5000 2    50   ~ 0
+KEY_6
+Text Label 2650 5100 2    50   ~ 0
 KEY_7
 Wire Notes Line
-	1000 4750 1000 3900
+	1000 5150 1000 4300
 Wire Notes Line
-	1000 4750 1350 4750
-Text Notes 950  5000 0    50   ~ 0
+	1000 5150 1350 5150
+Text Notes 950  5400 0    50   ~ 0
 Connected to\nCopper Pads
 Wire Notes Line
-	950  4900 900  4900
+	950  5300 900  5300
 Wire Notes Line
-	900  4900 900  4300
+	900  5300 900  4700
 Wire Notes Line
-	900  4300 1000 4300
+	900  4700 1000 4700
 Wire Notes Line
-	1000 3900 1350 3900
+	1000 4300 1350 4300
 Wire Notes Line
-	1350 4750 1350 3900
-Wire Wire Line
-	6000 4000 5250 4000
-Wire Wire Line
-	6000 4100 5250 4100
-Wire Wire Line
-	6000 4200 5250 4200
-Wire Wire Line
-	6000 4300 5250 4300
+	1350 5150 1350 4300
 Wire Wire Line
 	6000 4400 5250 4400
 Wire Wire Line
@@ -1508,50 +1452,52 @@ Wire Wire Line
 	6000 4600 5250 4600
 Wire Wire Line
 	6000 4700 5250 4700
-Text Label 6000 4000 2    50   ~ 0
-KEY_24
-Text Label 6000 4100 2    50   ~ 0
-KEY_25
-Text Label 6000 4200 2    50   ~ 0
-KEY_26
-Text Label 6000 4300 2    50   ~ 0
-KEY_27
+Wire Wire Line
+	6000 4800 5250 4800
+Wire Wire Line
+	6000 4900 5250 4900
+Wire Wire Line
+	6000 5000 5250 5000
+Wire Wire Line
+	6000 5100 5250 5100
 Text Label 6000 4400 2    50   ~ 0
-KEY_28
+KEY_24
 Text Label 6000 4500 2    50   ~ 0
-KEY_29
+KEY_25
 Text Label 6000 4600 2    50   ~ 0
-KEY_30
+KEY_26
 Text Label 6000 4700 2    50   ~ 0
+KEY_27
+Text Label 6000 4800 2    50   ~ 0
+KEY_28
+Text Label 6000 4900 2    50   ~ 0
+KEY_29
+Text Label 6000 5000 2    50   ~ 0
+KEY_30
+Text Label 6000 5100 2    50   ~ 0
 KEY_31
-Text Label 4000 4000 0    50   ~ 0
-KEY_16
-Text Label 4000 4100 0    50   ~ 0
-KEY_17
-Text Label 4000 4200 0    50   ~ 0
-KEY_18
-Text Label 4000 4300 0    50   ~ 0
-KEY_19
 Text Label 4000 4400 0    50   ~ 0
-KEY_20
+KEY_16
 Text Label 4000 4500 0    50   ~ 0
-KEY_21
+KEY_17
 Text Label 4000 4600 0    50   ~ 0
-KEY_22
+KEY_18
 Text Label 4000 4700 0    50   ~ 0
+KEY_19
+Text Label 4000 4800 0    50   ~ 0
+KEY_20
+Text Label 4000 4900 0    50   ~ 0
+KEY_21
+Text Label 4000 5000 0    50   ~ 0
+KEY_22
+Text Label 4000 5100 0    50   ~ 0
 KEY_23
 Wire Notes Line
-	3950 4750 3950 3900
+	3950 5150 3950 4300
 Wire Notes Line
-	3950 4750 4350 4750
+	3950 5150 4350 5150
 Wire Wire Line
-	4000 4400 4750 4400
-Wire Wire Line
-	4000 4300 4750 4300
-Wire Wire Line
-	4000 4200 4750 4200
-Wire Wire Line
-	4000 4100 4750 4100
+	4000 4800 4750 4800
 Wire Wire Line
 	4000 4700 4750 4700
 Wire Wire Line
@@ -1559,141 +1505,139 @@ Wire Wire Line
 Wire Wire Line
 	4000 4500 4750 4500
 Wire Wire Line
-	4000 4000 4750 4000
-Text Notes 3900 5000 0    50   ~ 0
+	4000 5100 4750 5100
+Wire Wire Line
+	4000 5000 4750 5000
+Wire Wire Line
+	4000 4900 4750 4900
+Wire Wire Line
+	4000 4400 4750 4400
+Text Notes 3900 5400 0    50   ~ 0
 Connected to\nCopper Pads
 Wire Notes Line
-	3900 4900 3850 4900
+	3900 5300 3850 5300
 Wire Notes Line
-	3850 4900 3850 4300
+	3850 5300 3850 4700
 Wire Notes Line
-	3850 4300 3950 4300
+	3850 4700 3950 4700
 Wire Notes Line
-	3950 3900 4350 3900
+	3950 4300 4350 4300
 Wire Notes Line
-	4350 4750 4350 3900
+	4350 5150 4350 4300
 Wire Notes Line
-	6050 4750 6050 3900
+	6050 5150 6050 4300
 Wire Notes Line
-	6050 4750 5650 4750
-Text Notes 6100 5000 2    50   ~ 0
+	6050 5150 5650 5150
+Text Notes 6100 5400 2    50   ~ 0
 Connected to\nCopper Pads
 Wire Notes Line
-	6100 4900 6150 4900
+	6100 5300 6150 5300
 Wire Notes Line
-	6150 4900 6150 4300
+	6150 5300 6150 4700
 Wire Notes Line
-	6150 4300 6050 4300
+	6150 4700 6050 4700
 Wire Notes Line
-	6050 3900 5650 3900
+	6050 4300 5650 4300
 Wire Notes Line
-	5650 4750 5650 3900
+	5650 5150 5650 4300
 Wire Wire Line
-	4750 3600 4650 3600
+	4750 4000 4650 4000
 Wire Wire Line
-	4750 3900 4500 3900
+	4750 4300 4500 4300
 Wire Wire Line
-	4500 3900 4500 3800
+	4500 4300 4500 4200
 Wire Wire Line
-	3800 3800 4500 3800
+	3800 4200 4500 4200
 Wire Wire Line
-	4750 3700 4600 3700
+	4750 4100 4600 4100
 Wire Wire Line
-	4600 3700 4600 3600
+	4600 4100 4600 4000
 Wire Wire Line
-	4600 3600 3800 3600
+	4600 4000 3800 4000
 Wire Wire Line
-	4750 3800 4550 3800
+	4750 4200 4550 4200
 Wire Wire Line
-	4550 3800 4550 3700
+	4550 4200 4550 4100
 Wire Wire Line
-	3800 3700 4550 3700
+	3800 4100 4550 4100
 Wire Wire Line
-	5450 3800 5450 3700
+	5450 4200 5450 4100
 Wire Wire Line
-	5250 3800 5450 3800
+	5250 4200 5450 4200
 Wire Wire Line
-	5400 3700 5400 3600
+	5400 4100 5400 4000
 Wire Wire Line
-	5250 3700 5400 3700
+	5250 4100 5400 4100
 Wire Wire Line
-	5500 3900 5500 3800
+	5500 4300 5500 4200
 Wire Wire Line
-	5250 3900 5500 3900
+	5250 4300 5500 4300
 Wire Wire Line
-	5250 3600 5350 3600
+	5250 4000 5350 4000
 Wire Wire Line
-	5350 3600 5350 3300
+	5350 4000 5350 3700
 Wire Wire Line
-	5350 3300 5650 3300
+	5350 3700 5650 3700
 Wire Notes Line
-	2750 4750 2750 3900
+	2750 5150 2750 4300
 Wire Notes Line
-	2750 4750 2350 4750
-Text Notes 2800 5000 2    50   ~ 0
+	2750 5150 2350 5150
+Text Notes 2800 5400 2    50   ~ 0
 Connected to\nCopper Pads
 Wire Notes Line
-	2800 4900 2850 4900
+	2800 5300 2850 5300
 Wire Notes Line
-	2850 4900 2850 4300
+	2850 5300 2850 4700
 Wire Notes Line
-	2750 3900 2350 3900
+	2750 4300 2350 4300
 Wire Notes Line
-	2350 4750 2350 3900
+	2350 5150 2350 4300
 Wire Wire Line
-	2300 3900 2300 3800
+	2300 4300 2300 4200
 Wire Wire Line
-	2300 3700 3300 3700
+	2300 4100 3300 4100
 Wire Notes Line
-	2850 4300 2750 4300
+	2850 4700 2750 4700
 Wire Wire Line
-	2200 3700 2200 3600
+	2200 4100 2200 4000
 Wire Wire Line
-	2200 3600 3400 3600
+	2200 4000 3400 4000
 Wire Wire Line
-	2150 3600 2150 3500
+	2150 4000 2150 3900
 Wire Wire Line
-	2150 3500 3300 3500
+	2150 3900 3300 3900
 Wire Wire Line
-	2150 3600 2050 3600
+	2150 4000 2050 4000
 Wire Wire Line
-	2050 3700 2200 3700
+	2050 4100 2200 4100
 Wire Wire Line
-	2050 3900 2300 3900
+	2050 4300 2300 4300
 Wire Wire Line
-	4650 3450 4650 3600
+	4650 3850 4650 4000
 Wire Notes Line
-	3750 3500 3750 3850
+	3750 3900 3750 4250
 Wire Notes Line
-	3750 3850 4100 3850
+	3750 4250 4100 4250
 Wire Notes Line
-	4100 3850 4100 3500
+	4100 4250 4100 3900
 Wire Notes Line
-	4100 3500 3750 3500
+	4100 3900 3750 3900
 Wire Notes Line
-	3800 3500 3800 3350
+	3800 3900 3800 3750
 Wire Notes Line
-	3800 3350 3950 3350
+	3800 3750 3950 3750
 Wire Notes Line
-	5900 3500 5900 3850
+	5900 3900 5900 4250
 Wire Notes Line
-	5900 3850 6250 3850
+	5900 4250 6250 4250
 Wire Notes Line
-	6250 3850 6250 3500
+	6250 4250 6250 3900
 Wire Notes Line
-	6250 3500 5900 3500
-Text Notes 5800 3400 0    50   ~ 0
+	6250 3900 5900 3900
+Text Notes 5800 3800 0    50   ~ 0
  Connected to\n   off-board\nphototransistors
 Wire Notes Line
-	6100 3500 6100 3400
-Wire Wire Line
-	1550 4000 1050 4000
-Wire Wire Line
-	1550 4100 1050 4100
-Wire Wire Line
-	1550 4200 1050 4200
-Wire Wire Line
-	1550 4300 1050 4300
+	6100 3900 6100 3800
 Wire Wire Line
 	1550 4400 1050 4400
 Wire Wire Line
@@ -1703,13 +1647,13 @@ Wire Wire Line
 Wire Wire Line
 	1550 4700 1050 4700
 Wire Wire Line
-	2050 4000 2650 4000
+	1550 4800 1050 4800
 Wire Wire Line
-	2050 4100 2650 4100
+	1550 4900 1050 4900
 Wire Wire Line
-	2050 4200 2650 4200
+	1550 5000 1050 5000
 Wire Wire Line
-	2050 4300 2650 4300
+	1550 5100 1050 5100
 Wire Wire Line
 	2050 4400 2650 4400
 Wire Wire Line
@@ -1718,6 +1662,14 @@ Wire Wire Line
 	2050 4600 2650 4600
 Wire Wire Line
 	2050 4700 2650 4700
+Wire Wire Line
+	2050 4800 2650 4800
+Wire Wire Line
+	2050 4900 2650 4900
+Wire Wire Line
+	2050 5000 2650 5000
+Wire Wire Line
+	2050 5100 2650 5100
 Wire Notes Line
 	11050 4000 11050 650 
 Wire Wire Line
@@ -1763,23 +1715,23 @@ Wire Wire Line
 $Comp
 L Device:R R19
 U 1 1 5C656AD7
-P 7650 5300
-F 0 "R19" V 7550 5300 50  0000 C CNN
-F 1 "33" V 7750 5300 50  0000 C CNN
-F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 7580 5300 50  0001 C CNN
-F 3 "~" H 7650 5300 50  0001 C CNN
-	1    7650 5300
+P 7350 5300
+F 0 "R19" V 7250 5300 50  0000 C CNN
+F 1 "33" V 7450 5300 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 7280 5300 50  0001 C CNN
+F 3 "~" H 7350 5300 50  0001 C CNN
+	1    7350 5300
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R R17
 U 1 1 5C6561AE
-P 7650 4600
-F 0 "R17" V 7550 4600 50  0000 C CNN
-F 1 "33" V 7750 4600 50  0000 C CNN
-F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 7580 4600 50  0001 C CNN
-F 3 "~" H 7650 4600 50  0001 C CNN
-	1    7650 4600
+P 7350 4600
+F 0 "R17" V 7250 4600 50  0000 C CNN
+F 1 "33" V 7450 4600 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 7280 4600 50  0001 C CNN
+F 3 "~" H 7350 4600 50  0001 C CNN
+	1    7350 4600
 	0    1    1    0   
 $EndComp
 Text Label 1500 2050 0    50   ~ 0
@@ -1873,43 +1825,242 @@ $EndComp
 Text Notes 4500 6650 0    50   ~ 0
 NOTE:\nR_AIR is highly dependent on your \nIR leds and phototransistor/diodes.\nThey may range from \n10k Ohm to 2M Ohm.
 Wire Wire Line
-	2050 3800 2300 3800
+	2050 4200 2300 4200
 $Comp
 L power:+5V #PWR0121
 U 1 1 5F2974C6
-P 1450 3500
-F 0 "#PWR0121" H 1450 3350 50  0001 C CNN
-F 1 "+5V" H 1465 3673 50  0000 C CNN
-F 2 "" H 1450 3500 50  0001 C CNN
-F 3 "" H 1450 3500 50  0001 C CNN
-	1    1450 3500
+P 3300 3850
+F 0 "#PWR0121" H 3300 3700 50  0001 C CNN
+F 1 "+5V" H 3315 4023 50  0000 C CNN
+F 2 "" H 3300 3850 50  0001 C CNN
+F 3 "" H 3300 3850 50  0001 C CNN
+	1    3300 3850
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	2300 3800 2300 3700
-Connection ~ 2300 3800
+	2300 4200 2300 4100
+Connection ~ 2300 4200
 Wire Notes Line rgb(90, 238, 7)
 	3300 2200 3300 2150
 Wire Wire Line
-	1550 3900 1400 3900
+	1550 4300 1400 4300
 Wire Wire Line
-	1400 3900 1400 3800
+	1400 4300 1400 4200
 Wire Wire Line
-	750  3800 1400 3800
+	750  4200 1400 4200
 Wire Wire Line
-	1550 3800 1450 3800
+	1550 4200 1450 4200
 Wire Wire Line
-	1450 3800 1450 3700
+	1450 4200 1450 4100
 Wire Wire Line
-	750  3700 1450 3700
+	750  4100 1450 4100
 Wire Wire Line
-	1550 3700 1500 3700
+	1550 4100 1500 4100
 Wire Wire Line
-	1500 3700 1500 3600
+	1500 4100 1500 4000
 Wire Wire Line
-	750  3600 1500 3600
+	750  4000 1500 4000
 Wire Wire Line
-	1550 3600 1550 3500
+	1550 4000 1550 3900
 Wire Wire Line
-	1550 3500 1450 3500
+	1550 3900 1450 3900
+Wire Notes Line
+	11050 4100 11050 5900
+Wire Notes Line
+	9200 5900 11050 5900
+Wire Notes Line
+	9200 4100 11050 4100
+Wire Notes Line
+	9200 4100 9200 5900
+Text Notes 9300 4300 0    79   ~ 16
+Extra Pin Breakout
+$Comp
+L Connector_Generic:Conn_02x07_Odd_Even J3
+U 1 1 5F1F3A47
+P 10300 5100
+F 0 "J3" H 10350 5525 50  0000 C CNN
+F 1 "Conn_02x07_Odd_Even" H 10350 5526 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x07_P2.54mm_Horizontal" H 10300 5100 50  0001 C CNN
+F 3 "~" H 10300 5100 50  0001 C CNN
+	1    10300 5100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0123
+U 1 1 5F5D50D2
+P 10700 5500
+F 0 "#PWR0123" H 10700 5250 50  0001 C CNN
+F 1 "GND" H 10705 5327 50  0000 C CNN
+F 2 "" H 10700 5500 50  0001 C CNN
+F 3 "" H 10700 5500 50  0001 C CNN
+	1    10700 5500
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	10600 5400 10700 5400
+Wire Wire Line
+	10700 5400 10700 5500
+Wire Wire Line
+	10600 5300 10700 5300
+Wire Wire Line
+	10700 5300 10700 5400
+Connection ~ 10700 5400
+Wire Wire Line
+	10600 5200 10700 5200
+Wire Wire Line
+	10700 5200 10700 5300
+Connection ~ 10700 5300
+Wire Wire Line
+	10600 5100 10700 5100
+Wire Wire Line
+	10700 5100 10700 5200
+Connection ~ 10700 5200
+Wire Wire Line
+	10600 5000 10700 5000
+Wire Wire Line
+	10700 5000 10700 5100
+Connection ~ 10700 5100
+Wire Wire Line
+	10600 4900 10700 4900
+Wire Wire Line
+	10700 4900 10700 5000
+Connection ~ 10700 5000
+Wire Wire Line
+	10600 4800 10700 4800
+Wire Wire Line
+	10700 4800 10700 4900
+Connection ~ 10700 4900
+Wire Wire Line
+	2150 2450 1500 2450
+Wire Wire Line
+	2150 2550 1500 2550
+Text Label 1500 2550 0    50   ~ 0
+SPARE_5
+Wire Wire Line
+	2150 2650 1500 2650
+Text Label 1500 2650 0    50   ~ 0
+SPARE_6
+Wire Wire Line
+	4100 2550 3450 2550
+Text Label 3450 2550 0    50   ~ 0
+SPARE_2
+Wire Wire Line
+	4100 2650 3450 2650
+Text Label 3450 2650 0    50   ~ 0
+SPARE_0
+Wire Wire Line
+	2150 2350 1500 2350
+Text Label 1500 2350 0    50   ~ 0
+SPARE_3
+Text Label 1500 2450 0    50   ~ 0
+SPARE_4
+Wire Wire Line
+	5800 1800 5150 1800
+Text Label 5150 1800 0    50   ~ 0
+SPARE_1
+Wire Wire Line
+	10100 4900 9450 4900
+Wire Wire Line
+	10100 5000 9450 5000
+Text Label 9450 5000 0    50   ~ 0
+SPARE_2
+Wire Wire Line
+	10100 5100 9450 5100
+Text Label 9450 5100 0    50   ~ 0
+SPARE_3
+Wire Wire Line
+	10100 4800 9450 4800
+Text Label 9450 4800 0    50   ~ 0
+SPARE_0
+Text Label 9450 4900 0    50   ~ 0
+SPARE_1
+Wire Wire Line
+	10100 5200 9450 5200
+Text Label 9450 5200 0    50   ~ 0
+SPARE_4
+Wire Wire Line
+	10100 5300 9450 5300
+Text Label 9450 5300 0    50   ~ 0
+SPARE_5
+Wire Wire Line
+	10100 5400 9450 5400
+Text Label 9450 5400 0    50   ~ 0
+SPARE_6
+$Comp
+L power:VCC #PWR0111
+U 1 1 5F918C4D
+P 1450 3900
+F 0 "#PWR0111" H 1450 3750 50  0001 C CNN
+F 1 "VCC" H 1465 4073 50  0000 C CNN
+F 2 "" H 1450 3900 50  0001 C CNN
+F 3 "" H 1450 3900 50  0001 C CNN
+	1    1450 3900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_3_Bridged12 JP1
+U 1 1 5FA0B943
+P 1100 3250
+F 0 "JP1" H 1100 3363 50  0000 C CNN
+F 1 "SolderJumper_3_Bridged12" H 1100 3364 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 1100 3250 50  0001 C CNN
+F 3 "~" H 1100 3250 50  0001 C CNN
+	1    1100 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0125
+U 1 1 5FA2E042
+P 800 3250
+F 0 "#PWR0125" H 800 3100 50  0001 C CNN
+F 1 "+5V" H 815 3423 50  0000 C CNN
+F 2 "" H 800 3250 50  0001 C CNN
+F 3 "" H 800 3250 50  0001 C CNN
+	1    800  3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0126
+U 1 1 5FA2E048
+P 1400 3250
+F 0 "#PWR0126" H 1400 3100 50  0001 C CNN
+F 1 "+3.3V" H 1415 3423 50  0000 C CNN
+F 2 "" H 1400 3250 50  0001 C CNN
+F 3 "" H 1400 3250 50  0001 C CNN
+	1    1400 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR0127
+U 1 1 5FA91A52
+P 1550 3400
+F 0 "#PWR0127" H 1550 3250 50  0001 C CNN
+F 1 "VCC" H 1565 3573 50  0000 C CNN
+F 2 "" H 1550 3400 50  0001 C CNN
+F 3 "" H 1550 3400 50  0001 C CNN
+	1    1550 3400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1100 3400 1100 3450
+Wire Wire Line
+	1550 3450 1550 3400
+Wire Wire Line
+	1400 3250 1300 3250
+Wire Wire Line
+	900  3250 800  3250
+Wire Wire Line
+	1100 3450 1550 3450
+Wire Notes Line
+	700  3000 1650 3000
+Wire Notes Line
+	1650 3000 1650 3500
+Wire Notes Line
+	1650 3500 700  3500
+Wire Notes Line
+	700  3500 700  3000
+Wire Notes Line
+	1650 3100 1800 3100
+Text Notes 1800 3200 0    50   ~ 0
+VCC\nSelection
 $EndSCHEMATC
