@@ -1,273 +1,226 @@
 #include "PinConfig.h"
 
-#ifdef USB
-#include "USBOutput.h"
-#else
-#include "SerialOutput.h"
-#endif
-
-#ifdef LED_SERIAL
-#include "SerialLeds.h"
-bool updateLeds = false;
-byte serialBuffer[200];
-SerialLeds serialLeds;
-#endif
-
 #include "AirSensor.h"
-#include "Touchboard.h"
+#include "AutoTouchboard.h"
+#include "LightsUtils.h"
+#include "SerialLeds.h"
+#include "SerialProcessor.h"
+#include "USBOutput.h"
+
+#ifdef USE_DMA_RGB
+  #include <WS2812Serial.h>
+  #define USE_WS2812SERIAL
+#endif
+
 #include <FastLED.h>
 
+SerialProcessor serialProcessor;
+
+KeyState key_states[16];
+#ifndef KEY_DIVIDERS
 CRGB leds[16];
+#else
+CRGB leds[31]; 
+#endif
 
-CRGB led_on = 0xFF00FF; // purple
-CRGB led_off = 0xFFFF00; // yellow
+// Buffer for receiving serial input, either lights or config updates
+byte serialBuffer[200];
+// Flag that says whether the RGB strip needs to be refreshed
+bool updateLeds = false;
+// Flag that says whether to let serial input control the RGB strip, or make them reactively lit
+bool useSerialLeds = false;
+// A counter for how many loops we've run without having received any serial light updates. If
+// this counter reaches a pre-defined threshold, we fall back to reactive lighting
+int serialLightsCounter;
+// Used for benchmarking the input polling rate
+long lastMillis = 0;
+// Count how many times we updated input in the last second
+int pollCount = 0;
+// Keep track of the maximum polling rate we achieved
+int maxPollCount = 0;
+// Keep track of the minimum polling rate we achieved
+int minPollCount = 1000;
 
+// The colors to light the slider keys when they're on and off in reactive lighting mode
+CRGB led_on;
+CRGB led_off;
+// The intensity of the lights in reactive lighting mode
 float lightIntensity[16];
+
+// Whether the controller is currently active. 
 bool activated = true;
-float sensorPosition = -1;
 
-Touchboard *touchboard;
+AutoTouchboard *touchboard;
 AirSensor *sensor;
-Output *output;
+USBOutput *output;
+SerialLeds *serialLeds;
 
-char command[32];
+void initializeController();
 
-// Parse configuration command. For now, a serial terminal is required (like the monitor in Arduino IDE)
-// Eventually I will make a config tool
-void parseCommand()
-{
-  char input1 = Serial.read();
-  char input2;
-  int i;
-  switch (input1)
-  {
-    case 't': // touchboard
-      while (!Serial.available());
-      input2 = Serial.read();
-      switch (input2)
-      {
-        case 't': // threshold
-          touchboard->setThreshold(Serial.parseInt());
-          break;
-        case 'd': // dead zone
-          touchboard->setDeadzone(Serial.parseInt());
-          break;
-        case 'a': // alpha
-          touchboard->setAlpha(Serial.parseFloat());
-          break;
-        case 'c': // calibrate
-          touchboard->calibrateKeys();
-          break;
-        case 'n': // print neutral values
-          Serial.println("Neutral Values");
-          for (i = 0; i < NUM_SENSORS; i++)
-          {
-            Serial.print("Key: ");
-            Serial.print(i);
-            Serial.print("\t");
-            Serial.println(touchboard->getNeutralValue(i));
-          }
-          break;
-        case 'e': // print moving average values
-          Serial.println("Moving Average Values");
-          for (i = 0; i < NUM_SENSORS; i++)
-          {
-            Serial.print("Key: ");
-            Serial.print(i);
-            Serial.print("\t");
-            Serial.println(touchboard->getEmAverages(i));
-          }
-          break;
-        case 'r': // print raw values
-          Serial.println("Raw Values");
-          for (i = 0; i < NUM_SENSORS; i++)
-          {
-            Serial.print("Key: ");
-            Serial.print(i);
-            Serial.print("\t");
-            Serial.println(touchboard->getRawValue(i));
-          }
-          break;
-      }
-      break;
-    case 'i': // ir sensors
-      while (!Serial.available());
-      input2 = Serial.read();
-      switch (input2)
-      {
-        case 'd': // dead zone
-          sensor->setDeadzone(Serial.parseInt());
-          break;
-        case 'a': // alpha
-          sensor->setAlpha(Serial.parseFloat());
-          break;
-        case 'c': // calibrate
-          sensor->recalibrate();
-      }
-      break;
-    case 'p': // pause
-      activated = false;
-      break;
-    case 'r': // resume
-      activated = true;
-      break;
-    case 'g': // print values
-      Serial.print("tt \t");
-      Serial.println(touchboard->getThreshold());
-      Serial.print("td \t");
-      Serial.println(touchboard->getDeadzone());
-      Serial.print("ta \t");
-      Serial.println(touchboard->getAlpha());
-      Serial.print("id \t");
-      Serial.println(sensor->getDeadzone());
-      Serial.print("ia \t");
-      Serial.println(sensor->getAlpha());
-      Serial.print("lor \t");
-      Serial.println(led_on.r);
-      Serial.print("log \t");
-      Serial.println(led_on.g);
-      Serial.print("lob \t");
-      Serial.println(led_on.b);
-      Serial.print("lfr \t");
-      Serial.println(led_off.r);
-      Serial.print("lfg \t");
-      Serial.println(led_off.g);
-      Serial.print("lfb \t");
-      Serial.println(led_off.b);
-      Serial.print(";");
-      break;
-    case 'a': // check if activated
-      Serial.println(activated);
-      Serial.print(";");
-      break;
-    case 'l': // change led color
-      while (!Serial.available());
-      input2 = Serial.read();
-      switch (input2)
-      {
-        case 'o': // on
-          while (!Serial.available());
-          switch ((char)Serial.read())
-          {
-            case 'r': // red
-              led_on.r = Serial.parseInt(); // for now this has to be expressed in decimal
-              break;
-            case 'g': // green
-              led_on.g = Serial.parseInt();
-              break;
-            case 'b': // blue
-              led_on.b = Serial.parseInt();
-              break;
-            case 'e': // everything
-              led_on = Serial.parseInt();
-          }
-          break;
-        case 'f': // off
-          while (!Serial.available());
-          switch ((char)Serial.read())
-          {
-            case 'r': // red
-              led_off.r = Serial.parseInt(); // for now this has to be expressed in decimal
-              break;
-            case 'g': // green
-              led_off.g = Serial.parseInt();
-              break;
-            case 'b': // blue
-              led_off.b = Serial.parseInt();
-              break;
-            case 'e': // everything
-              led_off = Serial.parseInt();
-          }
-          break;
-      }
-      break;
-  }
-}
-
+/**
+ * Teensy setup. Initialize FastLED and start the timer for
+ * determining if we're using serial light output.
+ */
 void setup() {
   Serial.begin(115200);
+  #ifndef KEY_DIVIDERS
+  
   FastLED.addLeds<LED_TYPE, RGBPIN, LED_ORDER>(leds, 16);
+  #else
+  //Uncomment and tune this value if you're having power issues
+  FastLED.setBrightness(170);
+  FastLED.addLeds<LED_TYPE, RGBPIN, LED_ORDER>(leds, 31);
+  #endif
 
+  // Uncomment this to clear EEPROM, flash once, then comment and re-flash
+  // for(int i = 0; i < 128; i++) EEPROM.put(i, 0);
+  
+  initializeController();
+  lastMillis = millis();
+}
+
+/**
+ * Do the actual setup of our classes for input and output. This is broken
+ * out into a separate function so that if we update any config values over
+ * serial, everything can be re-initialized without needing a Teensy reboot.
+ */
+void initializeController() {
   // Flash LEDs orange 3 times
   for (int i = 0; i < 3; i++)
   {
     for (CRGB& led : leds)
-      led = 0xFF5F00;
+      led = CRGB::Orange;
+      
     FastLED.show();
     delay(1000);
+    
     for (CRGB& led : leds)
-      led = 0x000000;
+      led = CRGB::Black;
+      
     FastLED.show();
     delay(1000);
-  }
-
-  // Set LEDS to red prior to intialize
-  for (CRGB& led : leds)
-  {
-    led = CRGB::Red;
-    FastLED.show();
   }
 
   // Initialize and calibrate touch sensors
-  touchboard = new Touchboard();
+  if (touchboard != NULL) delete touchboard;
+  touchboard = new AutoTouchboard();
+
+  // Initialize the serial LED processor
+  if (serialLeds != NULL) delete serialLeds;
+  serialLeds = new SerialLeds();
+
+  // Initialize the reactive lighting colors, and if they're not in EEPROM, save them
+  byte lightsFlag;
+  EEPROM.get(67, lightsFlag);
+
+  if (lightsFlag == LIGHTS_FLAG) 
+  {
+    serialLeds->loadLights();
+  } 
+  else 
+  {
+    led_on = CRGB::Purple;
+    led_off = CRGB::Yellow;
+    serialLeds->saveLights();
+  }
 
   // Initialize air sensor
-  // Digital mode calibrations in the constructor
-  // Analog mode will automatically calibrate as it starts being read
-  sensor = new AirSensor(500, 50);
+  if (sensor != NULL) delete sensor;
+  sensor = new AirSensor(1000, 200);
 
   // Display the number of air sensors that were calibrated
   for (CRGB& led : leds)
-    led = 0x000000;
+    led = CRGB::Black;
+    
   for (int i = 0; i < 6; i++)
   {
     if (sensor->getSensorCalibrated(i))
+#ifndef KEY_DIVIDERS
       leds[i] = CRGB::Green;
+#else
+      leds[i*2] = CRGB::Green;
+#endif
     else
+#ifndef KEY_DIVIDERS
       leds[i] = CRGB::Red;
+#else
+      leds[i*2] = CRGB::Red;
+#endif
   }
+  
   FastLED.show();
   delay(3000);
+  serialLightsCounter = 0;
 
-  // Set LEDs blue for "ready, waiting for air sensor calibration"
-  for (CRGB& led : leds)
-    led = 0x0000FF;
-  FastLED.show();
-
-  // Initialize relevant output method / USB or serial
-#ifdef USB
+  // Initialize the USB output
+  if (output != NULL) delete output;
   output = new USBOutput();
-#else
-  output = new SerialOutput();
-#endif
 }
 
-void loop() {
+/**
+ * Helps check the polling rate of the controller and benchmark its input.
+ */
+void checkPollRate() {
+  pollCount++;
+  
+  if ((millis() - lastMillis) > 1000)
+  {
+    if (pollCount > maxPollCount)
+      maxPollCount = pollCount;
+    if (pollCount < minPollCount)
+      minPollCount = pollCount;
+      
+    Serial.print(pollCount);
+    Serial.print("\t");
+    Serial.print(minPollCount);
+    Serial.print("\t");
+    Serial.println(maxPollCount);
+    
+    pollCount = 0;
+    lastMillis = millis();
+  }
+}
 
-#ifndef LED_SERIAL
-  // Config commands can only be sent when the LEDs aren't being updated via serial
-  if (Serial.available())
+/**
+ * Main loop, checks all sensor states and updates the outputs as well as receive
+ * serial packets for light and config updates.
+ */
+void loop() {
+  // Uncomment this code to see benchmark in serial (in Hz)
+  checkPollRate();
+  
+  // Check for serial messages
+  if (Serial.available() >= 100)
   {
-    parseCommand();
+    Serial.readBytes(serialBuffer, 100);
+    serialProcessor.processBulk(serialBuffer);
   }
-#else
-  // Wait until have at least one message
-  // For the sake of processing time we'll be discarding every other message
-  if (Serial.available() > 200)
+  else 
   {
-    Serial.readBytes(serialBuffer, 200);
-    updateLeds = serialLeds.processBulk(serialBuffer, 200);
+    serialLightsCounter++;  
   }
-  else
-    updateLeds = false;
-#endif
 
   // If currently paused through a config command, do not execute main loop
-  if (!activated) return;
+  if (!activated) 
+    return;
+
+  // If we haven't received any serial light updates in 5 seconds, just fallback to reactive lighting
+  if (serialLightsCounter > 300) 
+    useSerialLeds = false;
+
+  // Process air sensor hand position
+#if !defined(SERIAL_PLOT) && defined(USB)
+#ifdef IR_SENSOR_KEY
+    output->sendSensor(sensor->getSensorReadings());
+#else
+    output->sendSensorEvent(sensor->getHandPosition());
+#endif
+#endif
 
   // Scan touch keyboard and update lights
   touchboard->scan();
   int index = 0;
+  
   for (int i = 0; i < 16; i++)
   {
 #ifndef LED_REVERSE
@@ -275,52 +228,73 @@ void loop() {
 #else
     index = 15 - i;
 #endif
-    if (lightIntensity[index] > 0.05f)
-      lightIntensity[index] -= 0.05f;
 
 #if NUM_SENSORS == 16
-
-    KeyState state = touchboard->update(i);
-
+    KeyState keyState = touchboard->update(i);
 #elif NUM_SENSORS == 32
-
-    KeyState state;
     KeyState stateTop = touchboard->update(i * 2);
     KeyState stateBot = touchboard->update(i * 2 + 1);
-
-    // Initial 32 key test -- only the single threshold will be applied
-    if (stateTop == KeyState::released && stateBot == KeyState::released)
-      state == KeyState::released;
-    else if ((stateTop != KeyState::released && stateBot == KeyState::released) ||
-             (stateTop == KeyState::released && stateBot != KeyState::released))
-      state == KeyState::singleTouch;
-    else if (stateTop != KeyState::released && stateBot != KeyState::released)
-      state == KeyState::doubleTouch;
-
+    KeyState keyState = (KeyState) stateTop + stateBot;
 #endif
+
+    // handle changing key colors for non-serial LED updates
+    if (!useSerialLeds)
+    {
+      if (lightIntensity[index] > 0.05f)
+        lightIntensity[index] -= 0.05f;
+  
+      // If the key is currently being held, set its color to the on color
+      if (keyState == SINGLE_PRESS || keyState == DOUBLE_PRESS)
+      {
+        lightIntensity[index] = 1.0f;
+#ifndef KEY_DIVIDERS
+        leds[index].setRGB(min(led_on.r / 2 + led_on.r / 2 * lightIntensity[index], 255), min(led_on.g / 2 + led_on.g / 2 * lightIntensity[index], 255), min(led_on.b / 2 + led_on.b / 2 * lightIntensity[index], 255));
+#else
+        leds[index*2].setRGB(min(led_on.r / 2 + led_on.r / 2 * lightIntensity[index], 255), min(led_on.g / 2 + led_on.g / 2 * lightIntensity[index], 255), min(led_on.b / 2 + led_on.b / 2 * lightIntensity[index], 255));
+#endif
+      }
+      else
+      {
+        // If not, make it the off color
+#ifndef KEY_DIVIDERS
+        leds[index].setRGB(led_off.r / 2, led_off.g / 2, led_off.b / 2);
+#else
+        leds[index*2].setRGB(led_off.r / 2, led_off.g / 2, led_off.b / 2);
+#endif
+      }
+
+#ifdef KEY_DIVIDERS     
+      lightIntensity[index] = 1.0f;
+      leds[index*2-1].setRGB(min(led_on.r / 2 + led_on.r / 2 * lightIntensity[index], 255), min(led_on.g / 2 + led_on.g / 2 * lightIntensity[index], 255), min(led_on.b / 2 + led_on.b / 2 * lightIntensity[index], 255));
+#endif
+
+      updateLeds = true;  
+    }
+    // handle changing key colors for serial LED updates
+    else 
+    {
+      if (updateLeds)
+      {
+        RGBLed temp = serialLeds->getKey(i);
+#ifndef KEY_DIVIDERS
+        leds[index].setRGB(temp.r, temp.g, temp.b);
+#else
+        leds[index*2].setRGB(temp.r, temp.g, temp.b);
+        if (i < 15){
+          temp = serialLeds->getDivider(i);
+          index = LightsUtils::getDividerIndex(i);
+          leds[index].setRGB(temp.r, temp.g, temp.b);
+        }
+#endif
+      }
+    }
 
 #if !defined(SERIAL_PLOT) && defined(USB)
-    output->sendKeyEvent(i, state);
+    if (key_states[i] != keyState)
+      output->sendKeyEvent(i, keyState);
 #endif
 
-#ifdef LED_SERIAL
-    if (updateLeds)
-    {
-      RGBLed temp = serialLeds.getKey(i);
-      leds[index].setRGB(temp.r, temp.g, temp.b);
-    }
-#else // Reactive LEDs
-    if (state != KeyState::released)
-    {
-      // If the key is currently being held, set its color to LED_ON
-      leds[index].setRGB(min(led_on.r / 2 + led_on.r / 2 * lightIntensity[index], 255), min(led_on.g / 2 + led_on.g / 2 * lightIntensity[index], 255), min(led_on.b / 2 + led_on.b / 2 * lightIntensity[index], 255));
-    }
-    else
-    {
-      // Else, return to LED_OFF
-      leds[index].setRGB(led_off.r / 2, led_off.g / 2, led_off.b / 2);
-    }
-#endif
+    key_states[i] = keyState;
   }
 
 #ifdef SERIAL_PLOT
@@ -337,36 +311,14 @@ void loop() {
 #endif
       Serial.print("\t");
     }
-    Serial.print(touchboard->getDeadzone());
     Serial.println();
   }
   else
   {
     Serial.print(touchboard->getRawValue(PLOT_PIN));
-    Serial.print("\t");
-    Serial.print(touchboard->getEmAverages(PLOT_PIN));
-    Serial.print("\t");
-    Serial.print(touchboard->getEmAverages(PLOT_PIN) + touchboard->getThreshold());
-    Serial.print("\t");
-    Serial.print(touchboard->getNeutralValue(PLOT_PIN));
-    Serial.print("\t");
-    Serial.print(touchboard->getNeutralValue(PLOT_PIN) + touchboard->getDeadzone());
+    Serial.println();
   }
 #endif
-
-  // Process air sensor hand position
-  const float newPosition = sensor->getHandPosition();
-  if (newPosition != sensorPosition)
-  {
-#if !defined(SERIAL_PLOT) && defined(USB)
-#ifdef IR_SENSOR_KEY
-    output->sendSensor(sensor->getSensorReadings());
-#else
-    output->sendSensorEvent(newPosition);
-#endif
-#endif
-    sensorPosition = newPosition;
-  }
 
   // Send update
 #if !defined(SERIAL_PLOT) && defined(USB)
@@ -379,7 +331,9 @@ void loop() {
   //#endif
 
   // If the air sensor is calibrated, update lights. The lights will stay red as long as the air sensor is not calibrated.
-  if (sensor->isCalibrated())
+  if (sensor->isCalibrated() && updateLeds)
+  {
     FastLED.show();
-
+    updateLeds = false;
+  }
 }

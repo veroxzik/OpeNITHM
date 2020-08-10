@@ -24,15 +24,15 @@ void USBOutput::sendKeyEvent(int key, KeyState state)
 {
   switch (state)
   {
-    case KeyState::released:
+    case KeyState::UNPRESSED:
       releaseKey(bottomRow[key]);
       releaseKey(topRow[key]);
       break;
-    case KeyState::singleTouch:
+    case KeyState::SINGLE_PRESS:
       pressKey(bottomRow[key]);
       releaseKey(topRow[key]);
       break;
-    case KeyState::doubleTouch:
+    case KeyState::DOUBLE_PRESS:
       pressKey(bottomRow[key]);
       pressKey(topRow[key]);
       break;

@@ -6,6 +6,21 @@
 #else
 #include "WProgram.h"
 #endif
+#include "Config.h"
+
+#include <EEPROM.h>
+
+#ifdef USE_DMA_RGB
+  #include <WS2812Serial.h>
+  #define USE_WS2812SERIAL
+#endif
+#include <FastLED.h>
+
+#define LIGHTS_FLAG 0xFF
+
+extern bool updateLeds;
+extern CRGB led_on;
+extern CRGB led_off;
 
 typedef struct {
   uint8_t b;
@@ -16,23 +31,15 @@ typedef struct {
 class SerialLeds
 {
   private:
-    enum state
-    {
-      headerSearch,
-      headerConfirm,
-      dataRead
-    };
-
-    uint8_t dataBuffer[100];
     uint8_t lastBuffer[100];
-    state currentState = headerSearch;
-    uint8_t currentReadNum = 0;
 
   public:
     SerialLeds();
-    bool process(uint8_t in);
-    bool processBulk(uint8_t *buf, size_t length);
+    void saveLights();
+    void loadLights();
+    void processBulk(uint8_t *buf);
     RGBLed getKey(uint8_t key); // Left to Right
+    RGBLed getDivider(uint8_t divider); // Left to Right
 
     union {
       RGBLed rgb[32];

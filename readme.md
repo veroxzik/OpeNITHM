@@ -2,43 +2,7 @@
 
 This repository contails files related to OpeNITHM.
 
-Firmware, schematics, board layout, and CAD files are included in this repo.
-
-## List of Hardware
-
-In the `CAD\STL` folder, you will find numerous parts that must be 3D printed.
-
-Please check out [the wiki](https://github.com/veroxzik/OpeNITHM/wiki/File-Explanation) for more information.
-
-| Part | Qty |
-| --- |:---:|
-| Center Frame | 1 |
-| Right Frame | 1 |
-| Left Frame | 1 |
-| Key Dual 2.5mm **OR** Key Dual 3mm<sup>1</sup> | 16 |
-| LED Support Peg | 16 |
-| Sensor Rail | 2 |
-| Sensor Spacer Left<sup>2</sup> | 1 |
-| Sensor Base Left<sup>2</sup> **OR** Integrated Sensor Base Left<sup>2</sup> | 1 |
-| Sensor Cover Left<sup>2</sup> | 1 |
-| Integrated Frame Mount Left<sup>2,3</sup> | 1 |
-
-**NOTES:** 
-1. Use 2.5mm for 3/32" and 3mm for 1/8" acrylic. 
-2. Print out mirrored version of these parts as well.
-3. Only print the frame mount if you are using the integrated sensor.
-
-The non-printed materials and hardware include:
-
-| Part                                                                       | Qty |
-| --- |:---:|
-| 4-40 Flat Head Screw, length 3/16" to 5/16" will work **OR** M3 equivalent | 2   |
-| Top Acrylic Plate<sup>1</sup> (472mm x 112mm)                              | 1   |
-| Key Acrylic<sup>1</sup> (103.5mm x 26mm)                                   | 16  |
-| Copper Tape, cut into rectangles 95mm x 26mm                               | 16  |
-
-**NOTES:**
-1. Use 2.5mm (3/32") **OR** 3mm (1/8") acrylic. Use the same acrylic for top plate and keys.
+Firmware, schematics, board layout, and CAD files are included in this repo. Please see the CAD directory for the original 3d printed version, or the v2-cad directory for the laser cut version. 
 
 ## List of Electronics
 
@@ -90,6 +54,10 @@ If you are going to solder your sensors directly to the PCB, it is not necessary
 
 As of 2020-07-17, the recommended board version is v2.1, which features inputs for 32 sensors. This best replicates the feeling of the arcade. Previous versions used 16 sensors. If you still wish to make a 16 key version, you can order the v2.1 but only populate two of the multiplexers. This is not really recommended.
 
+### Older versions
+
+For v2.0 and v1.1, bridge pins 17 and 24 for best throughput of RGB lighting and select the appropriate setting in `Config.h`.
+
 ## Installing on Teensy LC
 
 **NOTE:** This firmware is *only* written to work for the Teensy LC. Do *not* use Teensy 2.0, Teensy 3.x, or Teensy 4.x
@@ -101,6 +69,10 @@ Locate your `arduino` folder (usually `C:\Program Files (x86)\arduino`).
 Copy `Firmware/Teensy/boards.txt` to `arduino\hardware\teensy\avr\` and overwrite the existing.
 
 Copy `Firmware/Teensy/teensy3` to `arduino\hardware\teensy\avr\cores\teensy3` and overwrite any conflicts.
+
+Copy `Firmware/FastLED/WS2812Serial.cpp` and `Firmware/FastLED/WS2812Serial.h` to `arduino\hardware\teensy\avr\libraries\WS2812Serial` and overwrite the existing.
+
+Copy `Firmware/FastLED/FastLED.cpp` and `Firmware/FastLED/FastLED.h` to `[My Documents]\Arduino\libraries\FastLED\` and overwrite the existing.
 
 #### I am applying the changes manually
 
@@ -126,42 +98,11 @@ Prior to compilation, review the (numerous) options available to the end user in
 
 #### Configuring
 
-Before use, the controller will need a few parameters set. This can easily be done using the Arduino Serial Monitor.
-
-The exact settings will vary depending on your setup, but I would try these as a starting point:
-```
-tt50
-td50
-ta0.05
-```
-
-Use the command `g` to confirm your changes registered.
-
-**NOTE:** Serial configuration will not work with serial lights. Disable this feature to allow for configuration.
-
-Per WinEpic:
-
-The touch detection system uses an exponential moving average (EMA) to detect changes in the read value. You need to tune 3 values: deadzone, threshold and alpha.
-
-- **Deadzone** is the maximum value for which a key will be considered "untouched". If the read value ever falls below the deadzone value, the key will return to being untouched. The higher this value, the "harder" you need to push the key before it is considered an input, and the faster it will return to neutral once you start lifting your finger.
-- **Threshold** is how large the different between the detected input and the EMA must be for a touch event to occur. It is used for single touches as a way to prevent accidental double inputs, and for double touches to detect them. Increasing it makes the controller less responsive and increases the risk of touches not registering. Decreasing it makes fake inputs more likely, and also makes it harder for the controller to detect multitouch.
-- **Alpha** is how much weight the last readout has in the EMA. It is usually very close to 0. If it is too high, inputs won't register as they will be considered too similar to the moving average. If it is too low, the moving average won't update properly causing touches / double touches to not be detected properly.
-
-Threshold and Deadzone values are expressed relative to the calibration baseline. For example, If a key reads 80 untouched and 100 touched, you're gonna want to set your deadzone to something around 15-20. Start with Alpha at 0.001 and slowly go up from there.
-
-You can configure it using commands sent over the serial port. All changes, aside from recalibrating, apply immediately and persist after restarting.
-
-- `tt <value>` changes the threshold.
-- `td <value>` changes the deadzone.
-- `ta <value>` changes the alpha.
-- `tc` forces the controller to recalibrate, if you moved it to a different environment or accidentally touched it during initial calibration.
-- `g` prints out the current configuration values.
-
-When tuning, you want to increase alpha until it feels like you're missing inputs, then go back down.
+To be revised.
 
 #### Power On
 
-At startup, the LEDs will flash orange 3 times. Do not hold your hands near the touchboard at this time. When the touchboard turns red, calibration begins. After the touchboard turns blue, calibration has finished.
+To be revised.
 
 #### Output
 
