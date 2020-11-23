@@ -253,7 +253,8 @@ void loop() {
       }
 
 #ifdef KEY_DIVIDERS     
-      leds[(index * 2) - 1] = divider_color;
+      if (index != 0)
+        leds[(index * 2) - 1] = divider_color;
 #endif
 
       updateLeds = true;  
