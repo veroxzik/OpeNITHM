@@ -188,11 +188,17 @@ void loop() {
     useSerialLeds = false;
 
   // Process air sensor hand position
-#if !defined(SERIAL_PLOT) && defined(USB)
+#if defined(USB)
 #ifdef IR_SENSOR_KEY
-    output->sendSensor(sensor->getSensorReadings());
+    uint8_t airReadings = sensor->getSensorReadings();
+#ifndef SERIAL_AIR_READINGS
+    output->sendSensor(airReadings);
+#endif
 #else
-    output->sendSensorEvent(sensor->getHandPosition());
+    float handPosition = sensor->getHandPosition();
+#ifndef SERIAL_AIR_READINGS
+    output->sendSensorEvent(handPosition);
+#endif
 #endif
 #endif
 
@@ -210,7 +216,7 @@ void loop() {
 #if NUM_SENSORS == 16
     KeyState keyState = touchboard->update(i);
     
-  #if !defined(SERIAL_PLOT) && defined(USB)
+  #if !defined(SERIAL_KEY_PLOT) && defined(USB)
     if (key_states[i] != keyState)
       output->sendKeyEvent(i, keyState);
   #endif
@@ -222,7 +228,7 @@ void loop() {
     KeyState stateBot = touchboard->update(i * 2 + 1);
     KeyState keyState = stateTop + stateBot;
     
-  #if !defined(SERIAL_PLOT) && defined(USB)
+  #if !defined(SERIAL_KEY_PLOT) && defined(USB)
     if (key_states[i * 2] != stateTop)
       output->sendKeyEvent(i * 2, stateTop);
       
@@ -278,7 +284,7 @@ void loop() {
     }
   }
 
-#ifdef SERIAL_PLOT
+#ifdef SERIAL_KEY_PLOT
   if (PLOT_PIN == -1) {
     for (int i = 0; i < NUM_SENSORS; i++) {
 #ifdef SERIAL_RAW_VALUES
@@ -286,7 +292,7 @@ void loop() {
       Serial.print(touchboard->getRawValue(i));
 #else
       // Print normalized values
-      Serial.print(touchboard->getRawValue(i) - touchboard->getNeutralValue(i));
+      Serial.print(touchboard->getRawValue(i) - touchboard->getReleaseThresholdSingle(i));
 #endif
       Serial.print("\t");
     }
@@ -302,16 +308,11 @@ void loop() {
   bool sliderCalibrated = touchboard->isCalibrated();
 
   // Send update
-#if !defined(SERIAL_PLOT) && defined(USB)
+#if !defined(SERIAL_KEY_PLOT) && !defined(SERIAL_AIR_READINGS) && defined(USB)
   if (airCalibrated && sliderCalibrated) {
     output->sendUpdate();
   }
 #endif
-
-  //#if defined(SERIAL_PLOT)
-  //  Serial.print("\t");
-  //  Serial.println(sensor->getSensorReadings());
-  //#endif
 
   if (updateLeds && airCalibrated && sliderCalibrated) {
     FastLED.show();

@@ -41,13 +41,16 @@
 // *** FOR CALIBRATING AND DEBUGGING
 
 // Uncomment this line to output the touch values to the Serial port (for use with Arduino's Serial Plotter)
-//#define SERIAL_PLOT
+// #define SERIAL_KEY_PLOT
 
 // Uncomment this line if you want RAW touch values (vs. normalized)
-//#define SERIAL_RAW_VALUE
+// #define SERIAL_RAW_VALUES
 
 // Define PLOT_PIN as -1 to print all key's values, otherwise define as 0-15 for an individual key
 #define PLOT_PIN -1
+
+// Uncomment this line to output the air sensor values to the Serial port
+// #define SERIAL_AIR_READINGS
 
 // Uncomment this if you wish to ignore a falsely calibrated air sensor
 // #define IGNORE_AIR_CALIBRATION

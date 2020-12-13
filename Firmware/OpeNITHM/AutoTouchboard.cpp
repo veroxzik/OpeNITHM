@@ -121,6 +121,10 @@ uint16_t AutoTouchboard::getRawValue(int key) {
   return key_values[key];
 }
 
+uint16_t AutoTouchboard::getReleaseThresholdSingle(int key) {
+  return (uint16_t)releaseThresholdsSingle[key];
+}
+
 void AutoTouchboard::calcThresholds(int key, int pressure) {
   triggerThresholdsSingle[key] = pressure + deltaThreshold;
   releaseThresholdsSingle[key] = pressure + (deltaThreshold * releaseThreshold);

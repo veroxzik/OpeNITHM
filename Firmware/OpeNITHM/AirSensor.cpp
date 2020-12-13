@@ -152,7 +152,7 @@ void AirSensor::analogCalibrate() {
 bool AirSensor::getSensorState(int sensor) {
   uint16_t value = getValue(sensor);
 
-  /*
+#ifdef SERIAL_AIR_READINGS  
   Serial.print(sensor);
   Serial.print("\t");
   Serial.print(value);
@@ -161,7 +161,8 @@ bool AirSensor::getSensorState(int sensor) {
   Serial.print("\t");
   Serial.print(thresholds[sensor]);
   Serial.println();
-  */
+#endif
+  
 
 #ifndef IR_SENSOR_ANALOG
   return value == LOW ? true : false;
