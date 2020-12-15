@@ -1,12 +1,21 @@
 #include "AutoTouchboard.h"
 
 #if NUM_SENSORS == 32
+#ifndef OPENITHM_FULL_V1_0
 static const int sensorMap[] = {
   11, 3, 10, 2, 9, 1, 8, 0,
   31, 23, 30, 22, 29, 21, 28, 20,
   27, 19, 26, 18, 25, 17, 24, 16,
   15, 7, 14, 6, 13, 5, 12, 4
-};                             
+};
+#else
+ static const int sensorMap[] = {
+  7, 4, 5, 6, 2, 1, 3, 0,
+  31, 28, 29, 30, 26, 25, 27, 24,
+  23, 20, 21, 22, 18, 17, 19, 16,
+  15, 12, 13, 14, 10, 9, 11, 8
+};     
+#endif
 #endif
 
 void AutoTouchboard::scan() {

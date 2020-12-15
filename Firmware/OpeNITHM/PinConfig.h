@@ -20,6 +20,10 @@
 #define MUX_0 2
 #define MUX_1 3
 #define MUX_2 4
+#elif defined(OPENITHM_FULL_V1_0)
+#define MUX_0 4
+#define MUX_1 3
+#define MUX_2 2
 #endif
 
 // Sensor pin settings
@@ -31,7 +35,7 @@
 #define LED_0 7
 #define LED_1 6
 #define LED_2 5
-#elif defined(OPENITHM_V2_1)
+#elif defined(OPENITHM_V2_1) || defined(OPENITHM_FULL_V1_0)
 #define LED_0 8
 #define LED_1 7
 #define LED_2 6
@@ -54,7 +58,7 @@
 #define AIR_SENSOR_3_PIN 23
 #define AIR_SENSOR_4_PIN 22
 #define AIR_SENSOR_5_PIN 21
-#elif defined(OPENITHM_V2_0) || defined(OPENITHM_V2_1)
+#elif defined(OPENITHM_V2_0) || defined(OPENITHM_V2_1) || defined(OPENITHM_FULL_V1_0)
 #define AIR_SENSOR_0_PIN 18
 #define AIR_SENSOR_1_PIN 20
 #define AIR_SENSOR_2_PIN 22
@@ -81,6 +85,11 @@
 #define TOUCH_1 0
 #define TOUCH_2 1
 #define TOUCH_3 15
+#elif defined(OPENITHM_FULL_V1_0)
+#define TOUCH_0 1
+#define TOUCH_1 15
+#define TOUCH_2 16
+#define TOUCH_3 0
 #endif
 
 // Lighting pin settings
@@ -100,7 +109,7 @@
     #else
        #define RGBPIN 11
     #endif
-#elif defined(OPENITHM_V2_1)
+#elif defined(OPENITHM_V2_1) || defined(OPENITHM_FULL_V1_0)
   #define RGBPIN 5
 #endif
 
