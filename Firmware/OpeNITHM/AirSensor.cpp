@@ -76,18 +76,20 @@ void AirSensor::turnOffLight() {
 uint16_t AirSensor::getValue(int sensor) {
   // Turn on light corresponding to read sensor
   changeLight(sensor);
-
   // Delay required because the read may occur faster than the physical light turning on
   delayMicroseconds(AIR_LED_DELAY);
 
+  int value;
+
 #ifndef IR_SENSOR_ANALOG
-    return digitalRead(ir_sensor_pins[sensor]);
+    value =  digitalRead(ir_sensor_pins[sensor]);
 #else
-    return analogRead(ir_sensor_pins[sensor]);
+    value =  analogRead(ir_sensor_pins[sensor]);
 #endif
 
   // Turn the lights off when we're done reading
   turnOffLight();
+  return value;
 }
 
 AirSensor::AirSensor() {
@@ -115,7 +117,7 @@ void AirSensor::analogCalibrate() {
 
   // Skip some samples, for some reason the first few readings tend to give wild values that can skew min/max tracking
   for (int i = 0; i < SKIP_SAMPLES; i++) {
-    for (int sensor = 0; sensor < 6; sensor++) {
+    for (int sensor = 5; sensor >= 0; sensor--) {
       getValue(sensor);
       touchboard -> scan();
     }
@@ -123,7 +125,7 @@ void AirSensor::analogCalibrate() {
 
   // begin calibration
   for (int i = 0; i < CALIBRATION_SAMPLES; i++) {
-    for (int sensor = 0; sensor < 6; sensor++) {
+    for (int sensor = 5; sensor >= 0; sensor--) {
       uint16_t value = getValue(sensor);
 
       if (value > maxReadings[sensor])
@@ -175,7 +177,7 @@ bool AirSensor::getSensorState(int sensor) {
 float AirSensor::getHandPosition() {
   int highestTriggered = -1;
   
-  for (int i = 0; i < 6; i++) {
+  for (int i = 5; i >= 0; i--) {
     if (getSensorState(i)) {
       if ((i + 1) > highestTriggered) {
         highestTriggered = i + 1;
@@ -200,7 +202,7 @@ float AirSensor::getHandPosition() {
 uint8_t AirSensor::getSensorReadings() {
   uint8_t reading = 0;
 
-  for (int i = 0; i < 6; i++) {
+  for (int i = 5; i >= 0; i--) {
     reading |= ((int) getSensorState(i) << i);
   }
 

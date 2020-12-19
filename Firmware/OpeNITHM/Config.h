@@ -11,8 +11,9 @@
 // the pinout and configurations for OPENITHM_V1_1
 // #define OPENITHM_V1_0   // Version 1.0 (No version number on board)
 // #define OPENITHM_V1_1   // Version 1.1 (v1.1 on board under logo)
-#define OPENITHM_V2_0   // Version 2.0 (v2.0 in upper left of board)
+// #define OPENITHM_V2_0   // Version 2.0 (v2.0 in upper left of board)
 // #define OPENITHM_V2_1   // Version 2.1 (v2.1 in upper left of board)
+// #define OPENITHM_FULL_V1_0 // Version 1.0 of the fully integrated board with touch sensors
 
 // Uncomment this line if your IR sensors will be used in analog mode
 // ** OPENITHM_V1_1 AND ABOVE SHOULD ENABLE THIS OPTION **
@@ -71,14 +72,14 @@
 #define USB
 
 // Spit out errors for board definitions
-#if (defined(OPENITHM_V1_0) + defined(OPENITHM_V1_1) + defined(OPENITHM_V2_0) + defined(OPENITHM_V2_1)) == 0
+#if (defined(OPENITHM_V1_0) + defined(OPENITHM_V1_1) + defined(OPENITHM_V2_0) + defined(OPENITHM_V2_1) + defined(OPENITHM_FULL_V1_0)) == 0
 #error "Must define ONE Teensy board in Config.h"
-#elif (defined(OPENITHM_V1_0) + defined(OPENITHM_V1_1) + defined(OPENITHM_V2_0) + defined(OPENITHM_V2_1)) > 1
+#elif (defined(OPENITHM_V1_0) + defined(OPENITHM_V1_1) + defined(OPENITHM_V2_0) + defined(OPENITHM_V2_1) + defined(OPENITHM_FULL_V1_0)) > 1
 #error "Cannot define multiple Teensy boards in Config.h"
 #endif
 #endif
 
-#if (defined(OPENITHM_V2_0) || defined(OPENITHM_V2_1))
+#if (defined(OPENITHM_V2_0) || defined(OPENITHM_V2_1) || defined(OPENITHM_FULL_V1_0))
 #define NUM_SENSORS  32
 #else
 #define NUM_SENSORS  16
